@@ -5,7 +5,7 @@ Clean API for VK bots based on long poll with multi-dispatch send messages **(~7
 ## Install
 
 ```
-$ npm install vk-node-bot-api
+$ npm install node-vk-bot-api
 ```
 
 ## Example
