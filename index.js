@@ -126,13 +126,17 @@ module.exports = {
             if (action.commands[update.msg.toLowerCase()]) {
               action.commands[update.msg.toLowerCase()](update);
             } else {
-              Object.keys(action.hears).forEach((cmd, i) => {
-                if (new RegExp(cmd, 'i').test(update.msg.toLowerCase())) {
-                  action.hears[cmd](update);
-                } else if (i == Object.keys(action.hears).length - 1) {
-                  action.reserve(update);
-                }
-              });
+              if (Object.keys(action.hears).length) {
+                Object.keys(action.hears).forEach((cmd, i) => {
+                  if (new RegExp(cmd, 'i').test(update.msg.toLowerCase())) {
+                    action.hears[cmd](update);
+                  } else if (i == Object.keys(action.hears).length - 1) {
+                    action.reserve(update);
+                  }
+                });
+              } else {
+                action.reserve(update);
+              }
             }
           });
         }
