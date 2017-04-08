@@ -41,15 +41,15 @@ app.startLongPoll();
 
 ## Methods
 
-* [.auth(token)](hhttps://github.com/bifot/node-vk-bot-api#authtoken)
-* [.command(command, callback)](hhttps://github.com/bifot/node-vk-bot-api#commandcommand-callback)
-* [.hears(command, callback)](hhttps://github.com/bifot/node-vk-bot-api#hearscommand-callback)
-* [.reserve(callback)](hhttps://github.com/bifot/node-vk-bot-api#reservecallback)
-* [.sendMessage(opts)](hhttps://github.com/bifot/node-vk-bot-api#sendmessageopts)
-* [.getLastMessage(update)](hhttps://github.com/bifot/node-vk-bot-api#getlastmessageupdate)
-* [.getForwardMessage(update)](hhttps://github.com/bifot/node-vk-bot-api#getforwardmessageupdate)
-* [.startLongPoll()](hhttps://github.com/bifot/node-vk-bot-api#startlongpoll)
-* [.getLongPoll()](hhttps://github.com/bifot/node-vk-bot-api#getlongpoll)
+* [.auth(token)](https://github.com/bifot/node-vk-bot-api#authtoken)
+* [.command(command, callback)](https://github.com/bifot/node-vk-bot-api#commandcommand-callback)
+* [.hears(command, callback)](https://github.com/bifot/node-vk-bot-api#hearscommand-callback)
+* [.reserve(callback)](https://github.com/bifot/node-vk-bot-api#reservecallback)
+* [.sendMessage(opts)](https://github.com/bifot/node-vk-bot-api#sendmessageopts)
+* [.getLastMessage(update)](https://github.com/bifot/node-vk-bot-api#getlastmessageupdate)
+* [.getForwardMessage(update)](https://github.com/bifot/node-vk-bot-api#getforwardmessageupdate)
+* [.startLongPoll()](https://github.com/bifot/node-vk-bot-api#startlongpoll)
+* [.getLongPoll()](https://github.com/bifot/node-vk-bot-api#getlongpoll)
 
 ### .auth(token)
 
