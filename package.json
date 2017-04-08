@@ -1,0 +1,31 @@
+{
+  "name": "node-vk-bot-api",
+  "version": "0.1.0",
+  "description": "Clean API for VK bots based on long poll with multi-dispatch send messages (~75 per second).",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bifot/node-vk-bot-api.git"
+  },
+  "keywords": [
+    "vk",
+    "bots",
+    "api",
+    "vkontakte",
+    "bot",
+    "vk",
+    "api"
+  ],
+  "author": "Mikhail Semin",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bifot/node-vk-bot-api/issues"
+  },
+  "homepage": "https://github.com/bifot/node-vk-bot-api#readme",
+  "dependencies": {
+    "request": "^2.81.0"
+  }
+}
