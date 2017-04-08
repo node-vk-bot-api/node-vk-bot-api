@@ -40,14 +40,14 @@ app.startLongPoll();
 
 ## Methods
 
-* .setToken(token)
-* .addCommand(command, callback)
-* .notCommand(callback)
-* .sendMessage(opts)
-* .getLastMessage(update)
-* .getForwardMessage(update)
-* .startLongPoll()
-* .getLongPoll(longPollParams)
+* [.setToken(token)](https://github.com/bifot/node-vk-bot-api#settokentoken)
+* [.addCommand(command, callback)](https://github.com/bifot/node-vk-bot-api#addcommandcommand-callback)
+* [.notCommand(callback)](https://github.com/bifot/node-vk-bot-api#notcommandcallback)
+* [.sendMessage(opts)](https://github.com/bifot/node-vk-bot-api#sendmessageopts)
+* [.getLastMessage(update)](https://github.com/bifot/node-vk-bot-api#getlastmessageupdate)
+* [.getForwardMessage(update)](https://github.com/bifot/node-vk-bot-api#getforwardmessageupdate)
+* [.startLongPoll()](https://github.com/bifot/node-vk-bot-api#startlongpoll)
+* [.getLongPoll(longPollParams)](https://github.com/bifot/node-vk-bot-api#getlongpolllongpollparams)
 
 ### .setToken(token)
 
