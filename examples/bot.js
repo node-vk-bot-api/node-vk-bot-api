@@ -1,18 +1,15 @@
 const app = require('node-vk-bot-api');
 const api = require('node-vk-bot-api/method');
 
-// Set token
-app.setToken('88935996c67c290f47b79a0c8b0093227e916ce14c62e490aa96c8f8ed3090c9cbcdda92c8fadf1f5c74c');
+app.auth(process.env.BOT_TOKEN);
 
-// Send 'Hello' to user on command '/start'
-app.addCommand('/start', (data) => {
+app.command('/start', (data) => {
   const uid = data.user_id;
 
-  app.sendMessage({ user_id: uid, message: 'Hello, this is /start command!' }); // => '{ response: [ 1 ] }'
+  app.sendMessage({ user_id: uid, message: 'Hello, this is /start command!' });
 });
 
-// Send name and surname to user on command '/me'
-app.addCommand('/me', (data) => {
+app.command('/me', (data) => {
   const uid = data.user_id;
 
   api('users.get', { user_id: uid }).then(body => {
@@ -22,19 +19,20 @@ app.addCommand('/me', (data) => {
       user_id: uid,
       message: `You are ${user.first_name} ${user.last_name}.`
     });
-
-    // => '{ response: [ 2 ] }'
   });
 });
 
-// Reply same message if user sent not command.
-app.notCommand(data => {
+app.hears('hello', (data) => {
   const uid = data.user_id;
-  const date = data.date;
+
+  app.sendMessage({ user_id: uid, message: 'Hi!' });
+});
+
+app.reserve(data => {
+  const uid = data.user_id;
   const msg = data.msg;
 
   app.sendMessage({ user_id: uid, message: msg }); // => '{ response: [ 3 ] }'
 });
 
-// Start long poll
 app.startLongPoll();

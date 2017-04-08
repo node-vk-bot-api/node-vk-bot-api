@@ -4,6 +4,9 @@ const api = require('./method');
 const group = {};
 const action = {};
 
+action.commands = {};
+action.hears = {};
+
 let execute = [];
 
 setInterval(() => {
@@ -24,14 +27,17 @@ setInterval(() => {
 }, 350);
 
 module.exports = {
-  setToken: function(token) {
+  auth: function(token) {
     group.token = token;
   },
-  addCommand: function(command, callback) {
-    action[command] = callback;
+  command: function(command, callback) {
+    action.commands[command.toLowerCase()] = callback;
   },
-  notCommand: function(callback) {
-    action.not_command = callback;
+  hears: function(command, callback) {
+    action.hears[command.toLowerCase()] = callback;
+  },
+  reserve: function(callback) {
+    action.reserve = callback;
   },
   sendMessage: function(opts) {
     execute.push(opts);
@@ -117,10 +123,16 @@ module.exports = {
               ? { user_id: uid, date: data.date, msg: data.body }
               : { user_id: uid, date: data[4], msg: data[6] };
 
-            if (action[update.msg]) {
-              action[update.msg](update);
+            if (action.commands[update.msg.toLowerCase()]) {
+              action.commands[update.msg.toLowerCase()](update);
             } else {
-              action.not_command(update);
+              Object.keys(action.hears).forEach((cmd, i) => {
+                if (new RegExp(cmd, 'i').test(update.msg.toLowerCase())) {
+                  action.hears[cmd](update);
+                } else if (i == Object.keys(action.hears).length - 1) {
+                  action.reserve(update);
+                }
+              });
             }
           });
         }
