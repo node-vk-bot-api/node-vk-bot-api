@@ -115,28 +115,10 @@ app.getLastMessage({
 
 ### .getForwardMessage(update)
 
-Get message info from forward message. If function detects `fwd_messages`, then will call `.getLastMessage(update)`. Function takes one argument: `update` **(object)**.
+Get message info from forward message. If function detects `fwd_messages`, then will call `.getLastMessage(update)`. Function takes one argument: `update` **(array)**.
 
 ```javascript
-app.getForwardMessage({
-  "response": {
-    "count": 1,
-    "items": [{
-      "id": 480,
-      "date": 1491653021,
-      "out": 0,
-      "user_id": 145003487,
-      "read_state": 1,
-      "title": " ... ",
-      "body": "",
-      "fwd_messages": [{
-        "user_id": -138165805,
-        "date": 1491652976,
-        "body": "Hello, world!"
-      }]
-    }]
-  }
-});
+app.getForwardMessage([ 4, 487, 529, 145003487, 1491653078, ' ... ', '',  { fwd: '145003487_2214301' } ]);
 ```
 
 ### .startLongPoll()
