@@ -114,8 +114,8 @@ module.exports = {
 
           this.getForwardMessage(update).then(data => {
             const update = (Object.keys(data).length == 3)
-              ? { user_id: data.user_id, date: data.date, msg: data.body }
-              : { user_id: data[3], date: data[4], msg: data[6] };
+              ? { user_id: uid, date: data.date, msg: data.body }
+              : { user_id: uid, date: data[4], msg: data[6] };
 
             if (action[update.msg]) {
               action[update.msg](update);
