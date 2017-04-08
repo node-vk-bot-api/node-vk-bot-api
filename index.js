@@ -92,7 +92,7 @@ module.exports = {
         if (body.ts) {
           longPollParams.ts = body.ts;
         } else {
-          this.getLongPollParams(longPollParams);
+          this.getLongPoll();
           return;
         }
 
