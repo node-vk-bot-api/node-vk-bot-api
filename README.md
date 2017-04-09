@@ -112,13 +112,13 @@ app.reserve(data => {
 | Parameter  | Type      | Requried                     |
 | -----------|:---------:| ----------------------------:|
 | uid        | number    | yes                          |
-| msg        | string    | yes (not, if setten attach)  |
-| attach     | string    | yes (not, if setten msg)     |
+| msg        | string    | yes (no, if setten attach)   |
+| attach     | string    | yes (no, if setten msg)      |
 
 Send message (multi-dispatch). Also you can only one argument `opts`, it's must be equal to `object` All params for this object you can see on [messages.send](https://vk.com/dev/messages.send) page.
 
 ```javascript
-app.sendMessage(data.user_id, 'Hello, world!' });
+app.sendMessage(data.user_id, 'Hello, world!');
 
 app.sendMessage({
   user_id: data.user_id,
