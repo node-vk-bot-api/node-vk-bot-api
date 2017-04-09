@@ -27,8 +27,12 @@ setInterval(() => {
 }, 350);
 
 module.exports = {
-  auth: function(token) {
+  auth: function(token, opts) {
     group.token = token;
+
+    if (opts) {
+      group.mode = opts;
+    }
   },
   command: function(command, callback) {
     action.commands[command.toLowerCase()] = callback;
@@ -39,10 +43,48 @@ module.exports = {
   reserve: function(callback) {
     action.reserve = callback;
   },
+  isMember: function(gid, uid) {
+    return new Promise((resolve, reject) => {
+      api('groups.isMember', {
+        group_id: gid,
+        user_id: uid,
+        v: 5.62
+      }).then(body => {
+        if (body.response) {
+          resolve('User is subscriber');
+        } else {
+          reject('User isn\'t subscriber');
+        }
+      });
+    });
+  },
   sendMessage: function(uid, msg, attach) {
     const options = (typeof uid == 'object') ? uid : { user_id: uid, message: msg, attachment: attach };
 
     execute.push(options);
+  },
+  replyMessage: function(updates) {
+    this.getForwardMessage(updates).then(data => {
+      const update = (Object.keys(data).length == 3)
+        ? { user_id: updates[3], date: data.date, msg: data.body }
+        : { user_id: updates[3], date: data[4], msg: data[6] };
+
+      if (action.commands[update.msg.toLowerCase()]) {
+        action.commands[update.msg.toLowerCase()](update);
+      } else {
+        if (Object.keys(action.hears).length) {
+          Object.keys(action.hears).forEach((cmd, i) => {
+            if (new RegExp(cmd, 'i').test(update.msg.toLowerCase())) {
+              action.hears[cmd](update);
+            } else if (i == Object.keys(action.hears).length - 1) {
+              action.reserve(update);
+            }
+          });
+        } else {
+          action.reserve(update);
+        }
+      }
+    });
   },
   getLastMessage: function(update) {
     if (update.fwd_messages && update.fwd_messages.length) {
@@ -124,27 +166,15 @@ module.exports = {
 
           const uid = update[3];
 
-          this.getForwardMessage(update).then(data => {
-            const update = (Object.keys(data).length == 3)
-              ? { user_id: uid, date: data.date, msg: data.body }
-              : { user_id: uid, date: data[4], msg: data[6] };
-
-            if (action.commands[update.msg.toLowerCase()]) {
-              action.commands[update.msg.toLowerCase()](update);
-            } else {
-              if (Object.keys(action.hears).length) {
-                Object.keys(action.hears).forEach((cmd, i) => {
-                  if (new RegExp(cmd, 'i').test(update.msg.toLowerCase())) {
-                    action.hears[cmd](update);
-                  } else if (i == Object.keys(action.hears).length - 1) {
-                    action.reserve(update);
-                  }
-                });
-              } else {
-                action.reserve(update);
-              }
-            }
-          });
+          if (group.mode && group.mode.subscribers) {
+            this.isMember(group.mode.gid, uid).then(() => {
+              this.replyMessage(update);
+            }).catch(() => {
+              this.sendMessage(uid, group.mode.msg);
+            });
+          } else {
+            this.replyMessage(update);
+          }
         }
 
         this.getLongPoll(longPollParams);

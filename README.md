@@ -1,3 +1,5 @@
+[![node-vk-bot-api](https://img.shields.io/npm/v/node-vk-bot-api.svg)](https://www.npmjs.com/package/node-vk-bot-api/)
+
 # VK Bot API
 
 Clean API for VK bots based on long poll with multi-dispatch send messages **(~75 per second)**.
@@ -41,26 +43,39 @@ app.startLongPoll();
 
 ## Methods
 
-* [.auth(token)](#authtoken)
+* [.auth(token)](#authtoken-opts)
 * [.command(command, callback)](#commandcommand-callback)
 * [.hears(command, callback)](#hearscommand-callback)
 * [.reserve(callback)](#reservecallback)
 * [.sendMessage(uid, msg, attach)](#sendmessageuid-msg-attach)
+* [.replyMessage(updates)](#replymessageupdates)
 * [.getLastMessage(update)](#getlastmessageupdate)
 * [.getForwardMessage(update)](#getforwardmessageupdate)
 * [.startLongPoll()](#startlongpoll)
-* [.getLongPoll()](#getlongpoll)
+* [.getLongPoll(longPollParams)](#getlongpolllongpollparams)
 
-### .auth(token)
+### .auth(token, opts)
 
 | Parameter  | Type      | Requried  |
 | -----------|:---------:| ---------:|
 | token      | string    | yes       |
+| opts       | object    | no        |
 
-Authting with token.
+Authting with token. Also you can set `subscribers mode` and bot will reply only to subscribers.
 
 ```javascript
-app.auth('88935996c67c290f47b79a0c8b0093227e916ce14c62e490aa96c8f8ed3090c9cbcdda92c8fadf1f5c74c');
+// Bot will reply to all
+app.auth(process.env.BOT_TOKEN);
+```
+
+```javascript
+// Bot will reply only to subscribers.
+// If user isn't subscriber, bot will send 'Bot available only for subscribers ...'
+app.auth(process.env.BOT_TOKEN, {
+  subscribers: 1, // mode on
+  gid: 138165805, // group_id
+  msg: 'Bot available only for subscribers. Subscribe and then try again. <3' // message
+});
 ```
 
 ### .command(command, callback)
@@ -126,6 +141,14 @@ app.sendMessage({
   forward_messages: '123,431,544'
 });
 ```
+
+### .replyMessage(updates)
+
+| Parameter  | Type      | Requried                     |
+| -----------|:---------:| ----------------------------:|
+| updates    | array     | yes                          |
+
+Core function for reply message to user. In the start function calls `[getForwardMessage](#getforwardmessageupdate)` and then see is the message a command or action and calls `[sendMessage(#sendmessageuid-msg-attach)]`.
 
 ### .getLastMessage(update)
 

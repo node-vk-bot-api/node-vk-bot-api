@@ -1,7 +1,11 @@
 const app = require('node-vk-bot-api');
 const api = require('node-vk-bot-api/method');
 
-app.auth(process.env.BOT_TOKEN);
+app.auth(process.env.BOT_TOKEN, {
+  subscribers: 1,
+  gid: 138165805,
+  msg: 'Bot available only for subscribers. Subscribe and then try again. <3'
+});
 
 app.command('/start', (data) => {
   const uid = data.user_id;
@@ -29,7 +33,7 @@ app.reserve(data => {
   const uid = data.user_id;
   const msg = data.msg;
 
-  app.sendMessage(uid, msg, 'wall145003487_1900'); // => '{ response: [ 3 ] }'
+  app.sendMessage(uid, msg, 'wall145003487_1900');
 });
 
 app.startLongPoll();
