@@ -148,7 +148,7 @@ app.sendMessage({
 | -----------|:---------:| ----------------------------:|
 | updates    | array     | yes                          |
 
-Core function for reply message to user. In the start function calls `[getForwardMessage](#getforwardmessageupdate)` and then see is the message a command or action and calls `[sendMessage(#sendmessageuid-msg-attach)]`.
+Core function for reply message to user. In the start function calls [getForwardMessage](#getforwardmessageupdate) and then see is the message a command or action and calls [sendMessage(#sendmessageuid-msg-attach)].
 
 ### .getLastMessage(update)
 
