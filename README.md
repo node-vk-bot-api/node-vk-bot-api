@@ -43,7 +43,7 @@ app.startLongPoll();
 
 ## Methods
 
-* [.auth(token)](#authtoken-opts)
+* [.auth(token, opts)](#authtoken-opts)
 * [.command(command, callback)](#commandcommand-callback)
 * [.hears(command, callback)](#hearscommand-callback)
 * [.reserve(callback)](#reservecallback)
