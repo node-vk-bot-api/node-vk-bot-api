@@ -10,7 +10,7 @@ $ npm install node-vk-bot-api
 
 ## Example
 
-Full example you can check in `examples` folder.
+Full example you can see [here](https://github.com/bifot/node-vk-bot-api/blob/master/examples/bot.js).
 
 ```javascript
 const app = require('node-vk-bot-api');
@@ -20,20 +20,20 @@ app.auth(process.env.BOT_TOKEN);
 app.command('/start', (data) => {
   const uid = data.user_id;
 
-  app.sendMessage({ user_id: uid, message: 'Hello, this is /start command!' });
+  app.sendMessage(uid, 'Hello, this is /start command!');
 });
 
 app.hears('hello', (data) => {
   const uid = data.user_id;
 
-  app.sendMessage({ user_id: uid, message: 'Hi!' });
+  app.sendMessage(uid, 'Hi!');
 });
 
 app.reserve(data => {
   const uid = data.user_id;
   const msg = data.msg;
 
-  app.sendMessage({ user_id: uid, message: msg }); // => '{ response: [ 3 ] }'
+  app.sendMessage(uid, msg, 'wall145003487_1900');
 });
 
 app.startLongPoll();

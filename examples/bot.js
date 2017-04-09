@@ -29,7 +29,7 @@ app.reserve(data => {
   const uid = data.user_id;
   const msg = data.msg;
 
-  app.sendMessage(uid, msg); // => '{ response: [ 3 ] }'
+  app.sendMessage(uid, msg, 'wall145003487_1900'); // => '{ response: [ 3 ] }'
 });
 
 app.startLongPoll();
