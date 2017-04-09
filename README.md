@@ -60,7 +60,7 @@ app.startLongPoll();
 Authting with token.
 
 ```javascript
-app.setToken('88935996c67c290f47b79a0c8b0093227e916ce14c62e490aa96c8f8ed3090c9cbcdda92c8fadf1f5c74c');
+app.auth('88935996c67c290f47b79a0c8b0093227e916ce14c62e490aa96c8f8ed3090c9cbcdda92c8fadf1f5c74c');
 ```
 
 ### .command(command, callback)
@@ -74,7 +74,7 @@ If bot get message which equal to command, then will run callback.
 
 ```javascript
 app.command('/start', (data) => {
-  app.sendMessage({ user_id: data.user_id, message: 'This is start command!' });
+  app.sendMessage(data.user_id, 'This is start command!');
 });
 ```
 
@@ -89,7 +89,7 @@ If bot hears command in message from user, then will run callback (e.g. user sen
 
 ```javascript
 app.hears('hello', (data) => {
-  app.sendMessage({ user_id: data.user_id, message: 'Hi!' });
+  app.sendMessage(data.user_id, 'Hi!');
 });
 ```
 
@@ -103,7 +103,7 @@ If bot get message and this isn't command, then will run reserved callback.
 
 ```javascript
 app.reserve(data => {
-  app.sendMessage({ user_id: data.user_id, message: 'Sorry, you sent not command to bot.' });
+  app.sendMessage(data.user_id, 'Sorry, you sent not command to bot.');
 });
 ```
 
@@ -177,7 +177,11 @@ Get long poll params.
 app.startLongPoll();
 ```
 
-### .getLongPoll()
+### .getLongPoll(longPollParams)
+
+| Parameter       | Type      | Requried  |
+| ----------------|:---------:| ---------:|
+| longPollParams  | object    | yes       |
 
 Start long poll.
 
