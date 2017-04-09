@@ -41,15 +41,15 @@ app.startLongPoll();
 
 ## Methods
 
-* [.auth(token)](https://github.com/bifot/node-vk-bot-api#authtoken)
-* [.command(command, callback)](https://github.com/bifot/node-vk-bot-api#commandcommand-callback)
-* [.hears(command, callback)](https://github.com/bifot/node-vk-bot-api#hearscommand-callback)
-* [.reserve(callback)](https://github.com/bifot/node-vk-bot-api#reservecallback)
-* [.sendMessage(opts)](https://github.com/bifot/node-vk-bot-api#sendmessageopts)
-* [.getLastMessage(update)](https://github.com/bifot/node-vk-bot-api#getlastmessageupdate)
-* [.getForwardMessage(update)](https://github.com/bifot/node-vk-bot-api#getforwardmessageupdate)
-* [.startLongPoll()](https://github.com/bifot/node-vk-bot-api#startlongpoll)
-* [.getLongPoll()](https://github.com/bifot/node-vk-bot-api#getlongpoll)
+* [.auth(token)](#authtoken)
+* [.command(command, callback)](#commandcommand-callback)
+* [.hears(command, callback)](#hearscommand-callback)
+* [.reserve(callback)](#reservecallback)
+* [.sendMessage(uid, msg, attach)](#sendmessageuid-msg-attach)
+* [.getLastMessage(update)](#getlastmessageupdate)
+* [.getForwardMessage(update)](#getforwardmessageupdate)
+* [.startLongPoll()](#startlongpoll)
+* [.getLongPoll()](#getlongpoll)
 
 ### .auth(token)
 
@@ -107,16 +107,24 @@ app.reserve(data => {
 });
 ```
 
-### .sendMessage(opts)
+### .sendMessage(uid, msg, attach)
 
-| Parameter  | Type      | Requried  |
-| -----------|:---------:| ---------:|
-| opts       | object    | yes       |
+| Parameter  | Type      | Requried                     |
+| -----------|:---------:| ----------------------------:|
+| uid        | number    | yes                          |
+| msg        | string    | yes (not, if setten attach)  |
+| attach     | string    | yes (not, if setten msg)     |
 
-Send message (multi-dispatch).
+Send message (multi-dispatch). Also you can only one argument `opts`, it's must be equal to `object` All params for this object you can see on [messages.send](https://vk.com/dev/messages.send) page.
 
 ```javascript
-app.sendMessage({ user_id: data.user_id, message: 'Hello, world!' });
+app.sendMessage(data.user_id, 'Hello, world!' });
+
+app.sendMessage({
+  user_id: data.user_id,
+  message: 'Hello, function takes only one argument now. It\'s opts.',
+  forward_messages: '123,431,544'
+});
 ```
 
 ### .getLastMessage(update)

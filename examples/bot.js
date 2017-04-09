@@ -6,7 +6,7 @@ app.auth(process.env.BOT_TOKEN);
 app.command('/start', (data) => {
   const uid = data.user_id;
 
-  app.sendMessage({ user_id: uid, message: 'Hello, this is /start command!' });
+  app.sendMessage(uid, 'Hello, this is /start command!');
 });
 
 app.command('/me', (data) => {
@@ -15,24 +15,21 @@ app.command('/me', (data) => {
   api('users.get', { user_id: uid }).then(body => {
     const user = body.response[0];
 
-    app.sendMessage({
-      user_id: uid,
-      message: `You are ${user.first_name} ${user.last_name}.`
-    });
+    app.sendMessage(uid, `You are ${user.first_name} ${user.last_name}.`, 'wall145003487_1900');
   });
 });
 
 app.hears('hello', (data) => {
   const uid = data.user_id;
 
-  app.sendMessage({ user_id: uid, message: 'Hi!' });
+  app.sendMessage(uid, 'Hi!');
 });
 
 app.reserve(data => {
   const uid = data.user_id;
   const msg = data.msg;
 
-  app.sendMessage({ user_id: uid, message: msg }); // => '{ response: [ 3 ] }'
+  app.sendMessage(uid, msg); // => '{ response: [ 3 ] }'
 });
 
 app.startLongPoll();

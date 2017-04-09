@@ -39,8 +39,10 @@ module.exports = {
   reserve: function(callback) {
     action.reserve = callback;
   },
-  sendMessage: function(opts) {
-    execute.push(opts);
+  sendMessage: function(uid, msg, attach) {
+    const options = (typeof uid == 'object') ? uid : { user_id: uid, message: msg, attachment: attach };
+
+    execute.push(options);
   },
   getLastMessage: function(update) {
     if (update.fwd_messages && update.fwd_messages.length) {
@@ -70,7 +72,11 @@ module.exports = {
         access_token: group.token,
         v: 5.62
       }).then(body => {
-        this.getLongPoll(body.response);
+        // if (body.failed) {
+        //   this.startLongPoll();
+        // } else {
+          this.getLongPoll(body.response);
+        // }
       });
     });
   },
@@ -92,7 +98,7 @@ module.exports = {
         if (body.ts) {
           longPollParams.ts = body.ts;
         } else {
-          this.getLongPoll();
+          this.startLongPoll();
           return;
         }
 
