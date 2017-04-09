@@ -1,6 +1,6 @@
 {
   "name": "node-vk-bot-api",
-  "version": "0.2.12",
+  "version": "0.3",
   "description": "Clean API for VK bots based on long poll with multi-dispatch send messages (~75 per second).",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,16 @@
     "vkontakte",
     "bot",
     "vk",
-    "api"
+    "api",
+    "longpoll",
+    "vk-api",
+    "vk-app",
+    "vk-bot",
+    "vkbot",
+    "vkontakte-sdk",
+    "vkontakte-api",
+    "vkontakte-client",
+    "vkapi"
   ],
   "author": "Mikhail Semin",
   "license": "MIT",

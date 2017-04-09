@@ -114,15 +114,20 @@ module.exports = {
         access_token: group.token,
         v: 5.62
       }).then(body => {
-        // if (body.failed) {
-        //   this.startLongPoll();
-        // } else {
+        if (body.failed) {
+          this.startLongPoll();
+        } else {
           this.getLongPoll(body.response);
-        // }
+        }
       });
     });
   },
   getLongPoll: function(longPollParams) {
+    if (!longPollParams || !longPollParams.length) {
+      this.startLongPoll();
+      return;
+    }
+
     request({
       url: `https://${longPollParams.server}`,
       method: 'POST',

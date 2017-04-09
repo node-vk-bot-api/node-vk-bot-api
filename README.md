@@ -148,7 +148,7 @@ app.sendMessage({
 | -----------|:---------:| ----------------------------:|
 | updates    | array     | yes                          |
 
-Core function for reply message to user. In the start function calls [getForwardMessage](#getforwardmessageupdate) and then see is the message a command or action and calls [sendMessage(#sendmessageuid-msg-attach)].
+Core function for reply message to user. In the start function calls [getForwardMessage](#getforwardmessageupdate) and then see is the message a command or action and calls [sendMessage](#sendmessageuid-msg-attach).
 
 ### .getLastMessage(update)
 
@@ -186,7 +186,7 @@ app.getLastMessage({
 | -----------|:---------:| ---------:|
 | update     | array     | yes       |
 
-Get message info from forward message. If function detects `fwd_messages`, then will call `.getLastMessage(update)`.
+Get message info from forward message. If function detects `fwd_messages`, then will call [getLastMessage](#getlastmessageupdate).
 
 ```javascript
 app.getForwardMessage([ 4, 487, 529, 145003487, 1491653078, ' ... ', '',  { fwd: '145003487_2214301' } ]);
