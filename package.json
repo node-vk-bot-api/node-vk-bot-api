@@ -1,6 +1,6 @@
 {
   "name": "node-vk-bot-api",
-  "version": "0.3",
+  "version": "0.3.1",
   "description": "Clean API for VK bots based on long poll with multi-dispatch send messages (~75 per second).",
   "main": "index.js",
   "scripts": {

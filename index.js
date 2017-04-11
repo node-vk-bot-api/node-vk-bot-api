@@ -123,11 +123,6 @@ module.exports = {
     });
   },
   getLongPoll: function(longPollParams) {
-    if (!longPollParams || !longPollParams.length) {
-      this.startLongPoll();
-      return;
-    }
-
     request({
       url: `https://${longPollParams.server}`,
       method: 'POST',
