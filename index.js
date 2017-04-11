@@ -1,13 +1,13 @@
 const request = require('request');
 const api = require('./method');
 
-const group = {};
-const action = {};
+var execute = [];
+var longPollParams = {};
+var group = {};
+var action = {};
 
 action.commands = {};
 action.hears = {};
-
-let execute = [];
 
 setInterval(() => {
   if (execute.length) {
@@ -117,12 +117,14 @@ module.exports = {
         if (body.failed) {
           this.startLongPoll();
         } else {
-          this.getLongPoll(body.response);
+          longPollParams = body.response;
+
+          this.getLongPoll();
         }
       });
     });
   },
-  getLongPoll: function(longPollParams) {
+  getLongPoll: function() {
     request({
       url: `https://${longPollParams.server}`,
       method: 'POST',
@@ -147,7 +149,7 @@ module.exports = {
         const updates = body.updates;
 
         if (!updates || updates.length == 0) {
-          this.getLongPoll(longPollParams);
+          this.getLongPoll();
           return;
         }
 
@@ -169,7 +171,9 @@ module.exports = {
           if (group.mode && group.mode.subscribers) {
             this.isMember(group.mode.gid, uid).then(() => {
               this.replyMessage(update);
-            }).catch(() => {
+            }).catch(err => {
+              console.log(err);
+
               this.sendMessage(uid, group.mode.msg);
             });
           } else {
@@ -177,7 +181,7 @@ module.exports = {
           }
         }
 
-        this.getLongPoll(longPollParams);
+        this.getLongPoll();
       }
     });
   }

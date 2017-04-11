@@ -52,7 +52,7 @@ app.startLongPoll();
 * [.getLastMessage(update)](#getlastmessageupdate)
 * [.getForwardMessage(update)](#getforwardmessageupdate)
 * [.startLongPoll()](#startlongpoll)
-* [.getLongPoll(longPollParams)](#getlongpolllongpollparams)
+* [.getLongPoll()](#getlongpoll)
 
 ### .auth(token, opts)
 
@@ -200,11 +200,7 @@ Get long poll params.
 app.startLongPoll();
 ```
 
-### .getLongPoll(longPollParams)
-
-| Parameter       | Type      | Requried  |
-| ----------------|:---------:| ---------:|
-| longPollParams  | object    | yes       |
+### .getLongPoll()
 
 Start long poll.
 
