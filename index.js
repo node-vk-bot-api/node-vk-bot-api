@@ -65,23 +65,25 @@ module.exports = {
   },
   replyMessage: function(updates) {
     this.getForwardMessage(updates).then(data => {
-      const update = (Object.keys(data).length == 3)
-        ? { user_id: updates[3], date: data.date, msg: data.body }
-        : { user_id: updates[3], date: data[4], msg: data[6] };
+      if (data.body || data[3]) {
+        const update = (Object.keys(data).length == 3)
+          ? { user_id: updates[3], date: data.date, msg: data.body }
+          : { user_id: updates[3], date: data[4], msg: data[6] };
 
-      if (action.commands[update.msg.toLowerCase()]) {
-        action.commands[update.msg.toLowerCase()](update);
-      } else {
-        if (Object.keys(action.hears).length) {
-          Object.keys(action.hears).forEach((cmd, i) => {
-            if (new RegExp(cmd, 'i').test(update.msg.toLowerCase())) {
-              action.hears[cmd](update);
-            } else if (i == Object.keys(action.hears).length - 1) {
-              action.reserve(update);
-            }
-          });
+        if (action.commands[update.msg.toLowerCase()]) {
+          action.commands[update.msg.toLowerCase()](update);
         } else {
-          action.reserve(update);
+          if (Object.keys(action.hears).length) {
+            Object.keys(action.hears).forEach((cmd, i) => {
+              if (new RegExp(cmd, 'i').test(update.msg.toLowerCase())) {
+                action.hears[cmd](update);
+              } else if (i == Object.keys(action.hears).length - 1) {
+                action.reserve(update);
+              }
+            });
+          } else {
+            action.reserve(update);
+          }
         }
       }
     });
