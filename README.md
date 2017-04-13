@@ -1,4 +1,5 @@
 [![node-vk-bot-api](https://img.shields.io/npm/v/node-vk-bot-api.svg)](https://www.npmjs.com/package/node-vk-bot-api/)
+[![node-vk-bot-api](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
 
 # VK Bot API
 
@@ -15,30 +16,30 @@ $ npm install node-vk-bot-api
 Full example you can see [here](https://github.com/bifot/node-vk-bot-api/blob/master/examples/bot.js).
 
 ```javascript
-const app = require('node-vk-bot-api');
+const app = require('node-vk-bot-api')
 
-app.auth(process.env.BOT_TOKEN);
+app.auth(process.env.BOT_TOKEN)
 
 app.command('/start', (data) => {
-  const uid = data.user_id;
+  const uid = data.user_id
 
-  app.sendMessage(uid, 'Hello, this is /start command!');
-});
+  app.sendMessage(uid, 'Hello, this is /start command!')
+})
 
 app.hears('hello', (data) => {
-  const uid = data.user_id;
+  const uid = data.user_id
 
-  app.sendMessage(uid, 'Hi!');
-});
+  app.sendMessage(uid, 'Hi!')
+})
 
 app.reserve(data => {
-  const uid = data.user_id;
-  const msg = data.msg;
+  const uid = data.user_id
+  const msg = data.msg
 
-  app.sendMessage(uid, msg, 'wall145003487_1900');
-});
+  app.sendMessage(uid, msg, 'wall145003487_1900')
+})
 
-app.startLongPoll();
+app.startLongPoll()
 ```
 
 ## Methods
@@ -65,17 +66,16 @@ Authting with token. Also you can set `subscribers mode` and bot will reply only
 
 ```javascript
 // Bot will reply to all
-app.auth(process.env.BOT_TOKEN);
+app.auth(process.env.BOT_TOKEN)
 ```
 
 ```javascript
 // Bot will reply only to subscribers.
 // If user isn't subscriber, bot will send 'Bot available only for subscribers ...'
 app.auth(process.env.BOT_TOKEN, {
-  subscribers: 1, // mode on
-  gid: 138165805, // group_id
-  msg: 'Bot available only for subscribers. Subscribe and then try again. <3' // message
-});
+  gid: 138165805, // group id
+  msg: 'Bot available only for subscribers. Subscribe and then try again. <3'
+})
 ```
 
 ### .command(command, callback)
@@ -89,8 +89,8 @@ If bot get message which equal to command, then will run callback.
 
 ```javascript
 app.command('/start', (data) => {
-  app.sendMessage(data.user_id, 'This is start command!');
-});
+  app.sendMessage(data.user_id, 'This is start command!')
+})
 ```
 
 ### .hears(command, callback)
@@ -104,8 +104,8 @@ If bot hears command in message from user, then will run callback (e.g. user sen
 
 ```javascript
 app.hears('hello', (data) => {
-  app.sendMessage(data.user_id, 'Hi!');
-});
+  app.sendMessage(data.user_id, 'Hi!')
+})
 ```
 
 ### .reserve(callback)
@@ -118,8 +118,8 @@ If bot get message and this isn't command, then will run reserved callback.
 
 ```javascript
 app.reserve(data => {
-  app.sendMessage(data.user_id, 'Sorry, you sent not command to bot.');
-});
+  app.sendMessage(data.user_id, 'Sorry, you sent not command to bot.')
+})
 ```
 
 ### .sendMessage(uid, msg, attach)
@@ -133,13 +133,13 @@ app.reserve(data => {
 Send message (multi-dispatch). Also you can only one argument `opts`, it's must be equal to `object` All params for this object you can see on [messages.send](https://vk.com/dev/messages.send) page.
 
 ```javascript
-app.sendMessage(data.user_id, 'Hello, world!');
+app.sendMessage(data.user_id, 'Hello, world!')
 
 app.sendMessage({
   user_id: data.user_id,
   message: 'Hello, function takes only one argument now. It\'s opts.',
   forward_messages: '123,431,544'
-});
+})
 ```
 
 ### .replyMessage(updates)
@@ -177,7 +177,7 @@ app.getLastMessage({
       }]
     }]
   }
-});
+})
 ```
 
 ### .getForwardMessage(update)
@@ -189,7 +189,7 @@ app.getLastMessage({
 Get message info from forward message. If function detects `fwd_messages`, then will call [getLastMessage](#getlastmessageupdate).
 
 ```javascript
-app.getForwardMessage([ 4, 487, 529, 145003487, 1491653078, ' ... ', '',  { fwd: '145003487_2214301' } ]);
+app.getForwardMessage([ 4, 487, 529, 145003487, 1491653078, ' ... ', '',  { fwd: '145003487_2214301' } ])
 ```
 
 ### .startLongPoll()
@@ -197,7 +197,7 @@ app.getForwardMessage([ 4, 487, 529, 145003487, 1491653078, ' ... ', '',  { fwd:
 Get long poll params.
 
 ```javascript
-app.startLongPoll();
+app.startLongPoll()
 ```
 
 ### .getLongPoll()
