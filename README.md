@@ -45,7 +45,7 @@ bot.listen()
 
 | Parameter  | Type      | Requried  |
 | -----------|:---------:| ---------:|
-| options    | string    | yes       |
+| options    | object    | yes       |
 
 You need to set a key if your bot.
 
@@ -127,4 +127,4 @@ Send a message to any user.
 
 ## License & Author
 
-MIT.
+MIT. [Mikhail Semin](https://vk.com/bifot).
