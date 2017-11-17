@@ -1,11 +1,11 @@
 const API = require('../index')
-const { settings } = require('../config')
+const { token } = require('../config')
 
-const bot = new API(settings)
+const bot = new API(token)
 
 bot.command('start', ({ reply }) => reply('This is start!'))
 
-bot.hears('car', ({ reply }) => reply('I love Tesla!'))
+bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
 
 bot.on(({ reply }) => reply('What?'))
 

@@ -16,13 +16,11 @@ $ npm i node-vk-bot-api
 ```javascript
 const API = require('node-vk-bot-api')
 
-const bot = new API({
-  token: process.env.TOKEN
-})
+const bot = new API(process.env.TOKEN)
 
 bot.command('start', ({ reply }) => reply('This is start!'))
 
-bot.hears('car', ({ reply }) => reply('I love Tesla!'))
+bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
 
 bot.on(({ reply }) => reply('What?'))
 
@@ -41,7 +39,7 @@ bot.listen()
 
 | Parameter  | Type      | Requried  |
 |:-----------|:---------:| ---------:|
-| options    | object    | yes       |
+| token      | string    | yes       |
 
 Create bot.
 
