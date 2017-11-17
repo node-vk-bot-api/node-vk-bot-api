@@ -1,34 +1,30 @@
 [![node-vk-bot-api](https://img.shields.io/npm/v/node-vk-bot-api.svg?style=flat-square)](https://www.npmjs.com/package/node-vk-bot-api/)
 [![node-vk-bot-api](https://img.shields.io/badge/code%20style-standard-brightgreen.svg?style=flat-square)](http://standardjs.com/)
 
-# VK Bot API
+# node-vk-bot-api
 
-Clean API for VK bots based on long poll with multi-dispatch send messages **(75 per second)**.
+API for VK bots on long poll.
 
 ## Install
 
-```
+```sh
 $ npm i node-vk-bot-api
 ```
 
 ## Example
 
 ```javascript
-const VK = require('node-vk-bot-api')
+const API = require('node-vk-bot-api')
 
-const bot = new VK({ token: process.env.TOKEN })
-
-bot.command('attach', (ctx) => {
-  ctx.reply('Do you need attachment? Take it easy!', 'wall145003487_2068')
+const bot = new API({
+  token: process.env.TOKEN
 })
 
-bot.hears('hello', (ctx) => {
-  ctx.sendMessage(ctx.user_id, 'Did you say hello to me?!')
-})
+bot.command('start', ({ reply }) => reply('This is start!'))
 
-bot.on((ctx) => {
-  ctx.reply('I don\'t understand you!')
-})
+bot.hears('car', ({ reply }) => reply('I love Tesla!'))
+
+bot.on(({ reply }) => reply('What?'))
 
 bot.listen()
 ```
@@ -44,87 +40,83 @@ bot.listen()
 ### constructor(options)
 
 | Parameter  | Type      | Requried  |
-| -----------|:---------:| ---------:|
+|:-----------|:---------:| ---------:|
 | options    | object    | yes       |
 
-You need to set a key if your bot.
+Create bot.
 
 ```javascript
-const bot = new VK({ token: process.env.TOKEN })
+const bot = new API({
+  token: process.env.TOKEN
+})
 ```
 
 ### .command(command, callback)
 
 | Parameter  | Type      | Requried  |
-| -----------|:---------:| ---------:|
+|:-----------|:---------:| ---------:|
 | command    | string    | yes       |
 | callback   | function  | yes       |
 
-If the bot get a message which equal to command, then will run a callback.
+Add command w/ strict match.
 
 ```javascript
-bot.command('attach', (ctx) => {
-  ctx.reply('Do you need attachment? Take it easy!', 'wall145003487_2068')
-})
+bot.command('start', ({ reply }) => reply('This is start!'))
 ```
 
 ### .hears(command, callback)
 
 | Parameter  | Type      | Requried  |
-| -----------|:---------:| ---------:|
+|:-----------|:---------:| ---------:|
 | command    | string    | yes       |
 | callback   | function  | yes       |
 
-If the bot hears a command in message from user, then will run callback (e.g. user sent 'Hello, world' and bot hears 'hello', then bot will run a callback).
+Add command w/ match like RegEx.
 
 ```javascript
-bot.hears('hello', (ctx) => {
-  ctx.sendMessage(ctx.user_id, 'Did you say hello to me?!')
-})
+bot.hears('car', ({ reply }) => reply('I love Tesla!'))
 ```
 
 ### .on(callback)
 
 | Parameter  | Type      | Requried  |
-| -----------|:---------:| ---------:|
+|:-----------|:---------:| ---------:|
 | callback   | function  | yes       |
 
-If the bot receives a message and doesn't find an answer to it, it will run a callback.
+Add reserved callback.
 
 ```javascript
-bot.on((ctx) => {
-  ctx.reply('I don\'t understand you!')
-})
+bot.on(({ reply }) => reply('What?'))
 ```
 
 ### .listen()
 
-Start listening without any parameters.
+Start listen.
 
 ## Context Methods
 
 * [.reply(message, attachment)](#replymessage-attachment)
-* [.sendMessage(peerId, command, callback)](#sendmessagepeerid-command-callback)
+* [.sendMessage(peer, command, callback)](#sendmessagepeerid-command-callback)
 
 ### .reply(message, attachment)
 
 | Parameter  | Type      | Requried                         |
-| -----------|:---------:| --------------------------------:|
+|:-----------|:---------:| --------------------------------:|
 | message    | string    | yes (no, if setten attachment)   |
 | attachment | string    | yes (no, if setten message)      |
 
 Send a message to the current user.
 
-### .sendMessage(peerId, command, callback)
+### .sendMessage(peer, command, callback)
 
 | Parameter  | Type      | Requried                         |
-| -----------|:---------:| --------------------------------:|
-| peerId     | number    | yes                              |
+|:-----------|:---------:| --------------------------------:|
+| peer     | number    | yes                              |
 | message    | string    | yes (no, if setten attachment)   |
 | attachment | string    | yes (no, if setten message)      |
 
 Send a message to any user.
 
-## License & Author
+## License
 
-MIT. [Mikhail Semin](https://vk.com/bifot).
+MIT.

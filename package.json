@@ -1,10 +1,11 @@
 {
   "name": "node-vk-bot-api",
-  "version": "1.0.1",
-  "description": "API for VK bots based on long poll with multi-dispatch send messages (75 per second).",
+  "version": "1.1.0",
+  "description": "API for VK bots on long poll.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node examples/simple.js",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -36,11 +37,12 @@
   "homepage": "https://github.com/bifot/node-vk-bot-api#readme",
   "dependencies": {
     "request": "^2.81.0",
-    "request-promise": "^4.2.1",
-    "vk-wrapper": "^0.1.1"
+    "request-promise": "^4.2.1"
   },
   "directories": {
     "example": "examples"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "eslint": "^4.11.0"
+  }
 }

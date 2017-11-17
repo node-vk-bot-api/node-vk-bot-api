@@ -1,17 +1,12 @@
-const VK = require('../index')
+const API = require('../index')
+const { settings } = require('../config')
 
-const bot = new VK({ token: process.env.TOKEN })
+const bot = new API(settings)
 
-bot.command('attach', (ctx) => {
-  ctx.reply('Do you need attachment? Take it easy!', 'wall145003487_2068')
-})
+bot.command('start', ({ reply }) => reply('This is start!'))
 
-bot.hears('hello', (ctx) => {
-  ctx.sendMessage(ctx.user_id, 'Did you say hello to me?!')
-})
+bot.hears('car', ({ reply }) => reply('I love Tesla!'))
 
-bot.on((ctx) => {
-  ctx.reply('I don\'t understand you!')
-})
+bot.on(({ reply }) => reply('What?'))
 
 bot.listen()
