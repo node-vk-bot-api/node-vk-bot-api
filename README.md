@@ -26,6 +26,26 @@ bot.on(({ reply }) => reply('What?'))
 
 bot.listen()
 ```
+## Example for express (webhooks callback api)
+
+```javascript
+const express = require('express')
+const API = require('node-vk-bot-api')
+
+const app = express()
+const bot = new API(process.env.TOKEN)
+
+bot.command('start', ({ reply }) => reply('This is start!'))
+
+bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
+
+bot.on(({ reply }) => reply('What?'))
+
+app.use('/bot', bot.webhook({key:process.env.KEY, groupId:process.env.groupId}))
+
+app.listen(3123)
+
+```
 
 ## Methods
 
@@ -34,6 +54,7 @@ bot.listen()
 * [.hears(command, callback)](#hearscommand-callback)
 * [.on(callback)](#oncallback)
 * [.listen()](#listen)
+* [.webhook()](#webhook)
 
 ### constructor(options)
 
@@ -85,6 +106,19 @@ Add reserved callback.
 
 ```javascript
 bot.on(({ reply }) => reply('What?'))
+```
+
+### .webhook(options)
+
+| Parameter  | Type      | Requried  |
+|:-----------|:---------:| ---------:|
+| key        | String    | yes       |
+| groupId    | Number    | yes       |
+
+Return express router for listen webhook.
+
+```javascript
+app.use('/bot', bot.webhook({key:'e17235ca', groupId:157273165}))
 ```
 
 ### .listen()
