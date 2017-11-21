@@ -36,6 +36,8 @@
   },
   "homepage": "https://github.com/bifot/node-vk-bot-api#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
     "request": "^2.81.0",
     "request-promise": "^4.2.1"
   },
