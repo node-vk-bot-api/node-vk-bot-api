@@ -1,7 +1,7 @@
 {
   "name": "node-vk-bot-api",
-  "version": "1.1.1",
-  "description": "API for VK bots on long poll.",
+  "version": "1.2.0",
+  "description": "API for VK bots on long poll or webhooks.",
   "main": "index.js",
   "scripts": {
     "test": "node examples/simple.js",
