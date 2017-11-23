@@ -1,7 +1,7 @@
 const API = require('../index')
-const { token } = require('../config')
+const { TOKEN } = process.env
 
-const bot = new API(token)
+const bot = new API(TOKEN)
 
 bot.command('start', ({ reply }) => reply('This is start!'))
 
