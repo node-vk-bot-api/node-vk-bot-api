@@ -19,9 +19,7 @@ const API = require('node-vk-bot-api')
 const bot = new API(process.env.TOKEN)
 
 bot.command('start', ({ reply }) => reply('This is start!'))
-
 bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
-
 bot.on(({ reply }) => reply('What?'))
 
 bot.listen()
@@ -44,9 +42,7 @@ bot.listen()
 Create bot.
 
 ```javascript
-const bot = new API({
-  token: process.env.TOKEN
-})
+const bot = new API(process.env.TOKEN)
 ```
 
 ### .command(command, callback)
@@ -59,7 +55,9 @@ const bot = new API({
 Add command w/ strict match.
 
 ```javascript
-bot.command('start', ({ reply }) => reply('This is start!'))
+bot.command('start', ({ reply }) => {
+  reply('This is start!')
+})
 ```
 
 ### .hears(command, callback)
@@ -72,7 +70,9 @@ bot.command('start', ({ reply }) => reply('This is start!'))
 Add command w/ match like RegEx.
 
 ```javascript
-bot.hears('car', ({ reply }) => reply('I love Tesla!'))
+bot.hears(/(car|tesla)/, ({ reply }) => {
+  reply('I love Tesla!')
+})
 ```
 
 ### .on(callback)
@@ -84,7 +84,9 @@ bot.hears('car', ({ reply }) => reply('I love Tesla!'))
 Add reserved callback.
 
 ```javascript
-bot.on(({ reply }) => reply('What?'))
+bot.on(({ reply }) => {
+  reply('What?')
+})
 ```
 
 ### .listen()
