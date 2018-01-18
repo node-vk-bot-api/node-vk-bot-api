@@ -21,6 +21,6 @@ module.exports = {
       'error', 'single'
     ],
     'no-console': ['error', { allow: ['warn', 'error'] }],
-    'semi': ['error', 'always']
+    'semi': ['error', 'never']
   }
-};
+}
