@@ -3,7 +3,7 @@
 
 # node-vk-bot-api
 
-API for VK bots on long poll.
+API for VK bots, based on [Long Poll](https://vk.com/dev/using_longpoll).
 
 ## Install
 
@@ -28,6 +28,7 @@ bot.listen()
 ## Methods
 
 * [constructor(options)](#constructoroptions)
+* [.use(callback)](#usecallback)
 * [.command(command, callback)](#commandcommand-callback)
 * [.hears(command, callback)](#hearscommand-callback)
 * [.on(callback)](#oncallback)
@@ -35,7 +36,7 @@ bot.listen()
 
 ### constructor(options)
 
-| Parameter  | Type      | Requried  |
+| Parameter  | Type      | Required  |
 |:-----------|:---------:| ---------:|
 | token      | string    | yes       |
 
@@ -45,39 +46,51 @@ Create bot.
 const bot = new API(process.env.TOKEN)
 ```
 
+### .use(callback)
+
+| Parameter  | Type      | Required  |
+| -----------|:---------:| ---------:|
+| callback   | function  | yes       |
+
+Add middleware.
+
+```js
+bot.use(ctx => ctx.date = new Date())
+
+bot.on(({ date }) => {
+  // Fri Nov 24 2017 16:00:21 GMT+0300 (MSK)
+})
+```
+
 ### .command(command, callback)
 
-| Parameter  | Type      | Requried  |
-|:-----------|:---------:| ---------:|
+| Parameter  | Type      | Required  |
+| -----------|:---------:| ---------:|
 | command    | string    | yes       |
 | callback   | function  | yes       |
 
 Add command w/ strict match.
 
 ```javascript
-bot.command('start', ({ reply }) => {
-  reply('This is start!')
-})
+bot.command('start', ({ reply }) => reply('This is start!'))
 ```
 
 ### .hears(command, callback)
 
-| Parameter  | Type      | Requried  |
-|:-----------|:---------:| ---------:|
-| command    | string    | yes       |
+| Parameter  | Type      | Required  |
+| -----------|:---------:| ---------:|
+| command    | string/regexp | yes   |
 | callback   | function  | yes       |
 
 Add command w/ match like RegEx.
 
 ```javascript
-bot.hears(/(car|tesla)/, ({ reply }) => {
-  reply('I love Tesla!')
-})
+bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
 ```
 
 ### .on(callback)
 
-| Parameter  | Type      | Requried  |
+| Parameter  | Type      | Required  |
 |:-----------|:---------:| ---------:|
 | callback   | function  | yes       |
 
@@ -95,27 +108,30 @@ Start listen.
 
 ## Context Methods
 
-* [.reply(message, attachment)](#replymessage-attachment)
-* [.sendMessage(peer, command, callback)](#sendmessagepeerid-command-callback)
+* [.reply(peer_id, message, attachment, callback)](#replypeer_id-message-attachment-callback)
 
-### .reply(message, attachment)
+### .reply(peer_id, message, attachment, callback)
 
-| Parameter  | Type      | Requried                         |
-|:-----------|:---------:| --------------------------------:|
-| message    | string    | yes (no, if setten attachment)   |
-| attachment | string    | yes (no, if setten message)      |
 
-Send a message to the current user.
+| Parameter  | Type             | Requried  |
+| -----------|:----------------:| ---------:|
+| user_id     | number or array  | yes       |
+| message    | string           | yes (no, if setten attachment)   |
+| attachment | string           | yes (no, if setten message)      |
+| callback   | function         | no        |
 
-### .sendMessage(peer, command, callback)
+Send a message to user.
 
-| Parameter  | Type      | Requried                         |
-|:-----------|:---------:| --------------------------------:|
-| peer     | number    | yes                              |
-| message    | string    | yes (no, if setten attachment)   |
-| attachment | string    | yes (no, if setten message)      |
-
-Send a message to any user.
+```javascript
+bot.command('start', (ctx) => {
+  // with shortcut from context
+  ctx.reply('Hi, this is start!')
+  // function from context
+  ctx.sendMessage(ctx.peer_id, 'Hi, this is start!')
+  // simple usage
+  bot.reply(ctx.peer_id, 'Hi, this is start!')
+})
+```
 
 ## License
 
