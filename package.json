@@ -1,11 +1,11 @@
 {
   "name": "node-vk-bot-api",
   "version": "1.2.0",
-  "description": "API for VK bots on long poll.",
+  "description": "🤖 Vk bot framework for Node.js",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix"
+    "eslint": "eslint .",
+    "eslint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -41,15 +41,12 @@
   "directories": {
     "example": "examples"
   },
-  "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1"
-  },
   "engines": {
     "node": ">=8.0.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.19.1",
+    "eslint-config-airbnb-base": "^13.0.0",
+    "eslint-plugin-import": "^2.13.0"
   }
 }
