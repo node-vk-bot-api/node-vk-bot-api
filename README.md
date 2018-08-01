@@ -14,15 +14,15 @@ $ npm i node-vk-bot-api
 ## Example
 
 ```javascript
-const API = require('node-vk-bot-api')
+const VkBot = require('node-vk-bot-api')
 
-const bot = new API(process.env.TOKEN)
+const bot = new VkBot(process.env.TOKEN)
 
-bot.command('start', ({ reply }) => reply('This is start!'))
-bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
-bot.on(({ reply }) => reply('What?'))
+bot.command('/start', (ctx) => {
+  ctx.reply('Hello, this is start command!')
+})
 
-bot.listen()
+bot.startPolling()
 ```
 
 ## Methods
@@ -32,7 +32,7 @@ bot.listen()
 * [.command(command, callback)](#commandcommand-callback)
 * [.hears(command, callback)](#hearscommand-callback)
 * [.on(callback)](#oncallback)
-* [.listen()](#listen)
+* [.startPolling()](#startPolling)
 
 ### constructor(options)
 
@@ -102,9 +102,9 @@ bot.on(({ reply }) => {
 })
 ```
 
-### .listen()
+### .startPolling()
 
-Start listen.
+Start polling.
 
 ## Context Methods
 

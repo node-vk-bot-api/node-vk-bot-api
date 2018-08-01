@@ -1,12 +1,9 @@
-const API = require('../index')
-const { token } = require('../config')
+const VkBot = require('../')
 
-const bot = new API(token)
+const bot = new VkBot(process.env.TOKEN)
 
-bot.command('start', ({ reply }) => reply('This is start!'))
+bot.command('/start', (ctx) => {
+  ctx.reply('Hello, this is start command!')
+})
 
-bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
-
-bot.on(({ reply }) => reply('What?'))
-
-bot.listen()
+bot.startPolling()
