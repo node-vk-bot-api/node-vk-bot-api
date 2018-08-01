@@ -28,7 +28,6 @@ bot.startPolling()
 ## Methods
 
 * [constructor(options)](#constructoroptions)
-* [.use(callback)](#usecallback)
 * [.command(command, callback)](#commandcommand-callback)
 * [.hears(command, callback)](#hearscommand-callback)
 * [.on(callback)](#oncallback)
@@ -44,22 +43,6 @@ Create bot.
 
 ```javascript
 const bot = new API(process.env.TOKEN)
-```
-
-### .use(callback)
-
-| Parameter  | Type      | Required  |
-| -----------|:---------:| ---------:|
-| callback   | function  | yes       |
-
-Add middleware.
-
-```js
-bot.use(ctx => ctx.date = new Date())
-
-bot.on(({ date }) => {
-  // Fri Nov 24 2017 16:00:21 GMT+0300 (MSK)
-})
 ```
 
 ### .command(command, callback)
