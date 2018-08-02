@@ -9,14 +9,11 @@ const session = new Session()
 
 bot.use(session.middleware())
 
-bot.command('/add', (ctx) => {
-  ctx.session.counter = (ctx.session.counter || 0) + 1
+bot.on((ctx) => {
+  ctx.session.counter = ctx.session.counter || 0
+  ctx.session.counter++
 
-  ctx.reply('Okay')
-})
-
-bot.command('/get', (ctx) => {
-  ctx.reply(`Counter: ${ctx.session.counter || 0}`)
+  ctx.reply(`You wrote ${ctx.session.counter} messages.`)
 })
 
 bot.startPolling()

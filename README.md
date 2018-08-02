@@ -11,7 +11,7 @@ API for VK bots, based on [Long Poll](https://vk.com/dev/using_longpoll).
 $ npm i node-vk-bot-api
 ```
 
-## Example
+## Usage
 
 ```javascript
 const VkBot = require('node-vk-bot-api')
