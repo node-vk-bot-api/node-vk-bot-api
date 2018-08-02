@@ -11,125 +11,110 @@ API for VK bots, based on [Long Poll](https://vk.com/dev/using_longpoll).
 $ npm i node-vk-bot-api
 ```
 
-## Example
+## Usage
 
 ```javascript
-const API = require('node-vk-bot-api')
+const VkBot = require('node-vk-bot-api')
 
-const bot = new API(process.env.TOKEN)
+const bot = new VkBot({
+  token: process.env.TOKEN,
+  group_id: process.env.GROUP_ID
+})
 
-bot.command('start', ({ reply }) => reply('This is start!'))
-bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
-bot.on(({ reply }) => reply('What?'))
+bot.command('/start', (ctx) => {
+  ctx.reply('Hello!')
+})
 
-bot.listen()
+bot.startPolling()
 ```
 
 ## Methods
 
-* [constructor(options)](#constructoroptions)
-* [.use(callback)](#usecallback)
-* [.command(command, callback)](#commandcommand-callback)
-* [.hears(command, callback)](#hearscommand-callback)
-* [.on(callback)](#oncallback)
-* [.listen()](#listen)
+* [constructor(settings)](#constructorsettings)
+* [.use(middleware)](#usemiddleware)
+* [.command(triggers, ...middlewares)](#commandtriggers-middlewares)
+* [.on(...middlewares)](#onmiddlewares)
+* [.sendMessage(userId, message, attachment, keyboard, sticker)](#sendmessageuserid-message-attachment-keyboard-sticker)
+* [.startPolling()](#startpollingtimeout)
 
-### constructor(options)
-
-| Parameter  | Type      | Required  |
-|:-----------|:---------:| ---------:|
-| token      | string    | yes       |
+### constructor(settings)
 
 Create bot.
 
 ```javascript
-const bot = new API(process.env.TOKEN)
-```
-
-### .use(callback)
-
-| Parameter  | Type      | Required  |
-| -----------|:---------:| ---------:|
-| callback   | function  | yes       |
-
-Add middleware.
-
-```js
-bot.use(ctx => ctx.date = new Date())
-
-bot.on(({ date }) => {
-  // Fri Nov 24 2017 16:00:21 GMT+0300 (MSK)
+const bot = new VkBot({
+  token: process.env.TOKEN,
+  group_id: process.env.GROUP_ID
 })
 ```
 
-### .command(command, callback)
+### .use(middleware)
 
-| Parameter  | Type      | Required  |
-| -----------|:---------:| ---------:|
-| command    | string    | yes       |
-| callback   | function  | yes       |
-
-Add command w/ strict match.
+Add simple middleware.
 
 ```javascript
-bot.command('start', ({ reply }) => reply('This is start!'))
-```
-
-### .hears(command, callback)
-
-| Parameter  | Type      | Required  |
-| -----------|:---------:| ---------:|
-| command    | string/regexp | yes   |
-| callback   | function  | yes       |
-
-Add command w/ match like RegEx.
-
-```javascript
-bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
-```
-
-### .on(callback)
-
-| Parameter  | Type      | Required  |
-|:-----------|:---------:| ---------:|
-| callback   | function  | yes       |
-
-Add reserved callback.
-
-```javascript
-bot.on(({ reply }) => {
-  reply('What?')
+bot.use((ctx, next) => {
+  ctx.message.timestamp = new Date().getTime()
+  
+  next()
 })
 ```
 
-### .listen()
+### .command(triggers, ...middlewares)
 
-Start listen.
-
-## Context Methods
-
-* [.reply(peer_id, message, attachment, callback)](#replypeer_id-message-attachment-callback)
-
-### .reply(peer_id, message, attachment, callback)
-
-
-| Parameter  | Type             | Requried  |
-| -----------|:----------------:| ---------:|
-| user_id     | number or array  | yes       |
-| message    | string           | yes (no, if setten attachment)   |
-| attachment | string           | yes (no, if setten message)      |
-| callback   | function         | no        |
-
-Send a message to user.
+Add middlewares with triggers.
 
 ```javascript
 bot.command('start', (ctx) => {
-  // with shortcut from context
-  ctx.reply('Hi, this is start!')
-  // function from context
-  ctx.sendMessage(ctx.peer_id, 'Hi, this is start!')
-  // simple usage
-  bot.reply(ctx.peer_id, 'Hi, this is start!')
+  ctx.reply('Hello!')
+})
+```
+
+### .on(...middlewares)
+
+Add reserved middlewares without triggers.
+
+```javascript
+bot.on((ctx) => {
+  ctx.reply('No commands for you.')
+})
+```
+
+### .sendMessage(userId, message, attachment, keyboard, sticker)
+
+Send message to user.
+
+```javascript
+// Simple usage
+bot.sendMessage(145003487, 'Hello!', 'photo1_1')
+
+// Advanced usage
+bot.sendMessage(145003487, {
+  message: 'Hello!',
+  lat: 59.939095,
+  lng: 30.315868
+})
+```
+
+### .startPolling([timeout])
+
+Start polling with given timeout (25 by default).
+
+```js
+bot.startPolling()
+```
+
+## Context Methods
+
+* [.reply(message, attachment, keyboard, sticker)](#replymessage-attachment-keyboard-sticker)
+
+### .reply(message, attachment, keyboard, sticker)
+
+Helper method for reply to the current user.
+
+```javascript
+bot.command('start', (ctx) => {
+  ctx.reply('Hello!')
 })
 ```
 
