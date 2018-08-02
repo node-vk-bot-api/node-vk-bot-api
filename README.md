@@ -34,7 +34,7 @@ bot.startPolling()
 * [.use(middleware)](#usemiddleware)
 * [.command(triggers, ...middlewares)](#commandtriggers-middlewares)
 * [.on(...middlewares)](#onmiddlewares)
-* [.sendMessage(userId, message, attachment, sticker, keyboard)](#sendmessageuserid-message-attachment-sticker-keyboard)
+* [.sendMessage(userId, message, attachment, keyboard, sticker)](#sendmessageuserid-message-attachment-keyboard-sticker)
 * [.startPolling()](#startpollingtimeout)
 
 ### constructor(settings)
@@ -80,7 +80,7 @@ bot.on((ctx) => {
 })
 ```
 
-### .sendMessage(userId, message, attachment, sticker, keyboard)
+### .sendMessage(userId, message, attachment, keyboard, sticker)
 
 Send message to user.
 
@@ -106,9 +106,9 @@ bot.startPolling()
 
 ## Context Methods
 
-* [.reply(message, attachment, sticker, keyboard)](#replymessage-attachment-sticker-keyboard)
+* [.reply(message, attachment, keyboard, sticker)](#replymessage-attachment-keyboard-sticker)
 
-### .reply(message, attachment, sticker, keyboard)
+### .reply(message, attachment, keyboard, sticker)
 
 Helper method for reply to the current user.
 
