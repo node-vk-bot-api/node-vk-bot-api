@@ -1,6 +1,6 @@
 {
   "name": "node-vk-bot-api",
-  "version": "1.2.0",
+  "version": "2.0.0",
   "description": "🤖 Vk bot framework for Node.js",
   "main": "lib/index.js",
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bifot/node-vk-bot-api.git"
+    "url": "git+https://github.com/node-vk-bot-api/node-vk-bot-api.git"
   },
   "keywords": [
     "vk",
@@ -32,9 +32,9 @@
   "author": "Mikhail Semin",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/bifot/node-vk-bot-api/issues"
+    "url": "https://github.com/node-vk-bot-api/node-vk-bot-api/issues"
   },
-  "homepage": "https://github.com/bifot/node-vk-bot-api#readme",
+  "homepage": "https://github.com/node-vk-bot-api/node-vk-bot-api#readme",
   "dependencies": {
     "axios": "^0.17.1"
   },
