@@ -28,11 +28,11 @@ bot.startPolling()
 ## Methods
 
 * [constructor(settings)](#constructorsettings)
-* [.use(middleware)]
-* [.command(triggers, ...middlewares)]
-* [.on(...middlewares)]
-* [.sendMessage(userId, message, attachment, sticker, keyboard)]
-* [.startPolling()]
+* [.use(middleware)](#usemiddleware)
+* [.command(triggers, ...middlewares)](#commandtriggers-middlewares)
+* [.on(...middlewares)](#onmiddlewares)
+* [.sendMessage(userId, message, attachment, sticker, keyboard)](#sendmessageuserid-message-attachment-sticker-keyboard)
+* [.startPolling()](#startpollingtimeout)
 
 ### constructor(settings)
 
@@ -56,7 +56,7 @@ const bot = new API({
 Add simple middleware.
 
 ```javascript
-bot.use(async (ctx, next) => {
+bot.use((ctx, next) => {
   ctx.message.timestamp = new Date().getTime()
   
   next()
@@ -88,7 +88,15 @@ bot.on((ctx) => {
 Send message to user.
 
 ```javascript
+// Simple usage
 bot.sendMessage(145003487, 'Hello!', 'photo1_1')
+
+// Advanced usage
+bot.sendMessage(145003487, {
+  message: 'Hello!',
+  lat: 59.939095,
+  lng: 30.315868
+})
 ```
 
 ### .startPolling([timeout])
@@ -101,7 +109,7 @@ bot.startPolling()
 
 ## Context Methods
 
-* [.reply(message, attachment, sticker, keyboard)](#replypeer_id-message-attachment-callback)
+* [.reply(message, attachment, sticker, keyboard)](#replymessage-attachment-sticker-keyboard)
 
 ### .reply(message, attachment, sticker, keyboard)
 
@@ -109,15 +117,7 @@ Helper method for reply to the current user.
 
 ```javascript
 bot.command('start', (ctx) => {
-  // Simple usage
-  ctx.reply('Hello!', 'photo1_1')
-  
-  // Advanced usage
-  ctx.reply({
-    message: 'Hello!',
-    lat: 59.939095,
-    lng: 30.315868
-  })
+  ctx.reply('Hello!')
 })
 ```
 
