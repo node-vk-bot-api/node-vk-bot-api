@@ -3,7 +3,7 @@
 
 # node-vk-bot-api
 
-API for VK bots, based on [Long Poll](https://vk.com/dev/using_longpoll).
+🤖 VK bot framework for Node.js, based on [Bots Long Poll API](https://vk.com/dev/bots_longpoll).
 
 ## Install
 
@@ -27,6 +27,10 @@ bot.command('/start', (ctx) => {
 
 bot.startPolling()
 ```
+
+## Examples
+
+[There's a few simple examples.](/examples)
 
 ## Methods
 
@@ -116,6 +120,68 @@ Helper method for reply to the current user.
 bot.command('start', (ctx) => {
   ctx.reply('Hello!')
 })
+```
+
+## Markup
+
+Add keyboard in message.
+
+```javascript
+const VkBot = require('node-vk-bot-api')
+const Markup = require('node-vk-bot-api/lib/markup')
+
+const bot = new VkBot({
+  token: process.env.TOKEN,
+  group_id: process.env.GROUP_ID,
+})
+
+bot.command('/sport', (ctx) => {
+  ctx.reply('Select your sport', null, Markup
+    .keyboard([
+      'Football',
+      'Basketball',
+    ])
+    .oneTime())
+})
+
+bot.command('/mood', (ctx) => {
+  ctx.reply('How are you doing?', null, Markup
+    .keyboard([
+      [
+        Markup.button('Normally', 'primary'),
+      ],
+      [
+        Markup.button('Fine', 'positive'),
+        Markup.button('Bad', 'negative'),
+      ],
+    ]))
+})
+```
+
+## Sessions
+
+Store anything for current user in local memory.
+
+```javascript
+const VkBot = require('node-vk-bot-api')
+const Session = require('node-vk-bot-api/lib/session')
+
+const bot = new VkBot({
+  token: process.env.TOKEN,
+  group_id: process.env.GROUP_ID,
+})
+const session = new Session()
+
+bot.use(session.middleware())
+
+bot.on((ctx) => {
+  ctx.session.counter = ctx.session.counter || 0
+  ctx.session.counter++
+
+  ctx.reply(`You wrote ${ctx.session.counter} messages.`)
+})
+
+bot.startPolling()
 ```
 
 ## License
