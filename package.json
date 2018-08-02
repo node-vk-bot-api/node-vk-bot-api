@@ -2,7 +2,7 @@
   "name": "node-vk-bot-api",
   "version": "1.2.0",
   "description": "🤖 Vk bot framework for Node.js",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix"

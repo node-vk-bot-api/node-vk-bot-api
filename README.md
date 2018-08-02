@@ -16,7 +16,10 @@ $ npm i node-vk-bot-api
 ```javascript
 const VkBot = require('node-vk-bot-api')
 
-const bot = new VkBot(process.env.TOKEN)
+const bot = new VkBot({
+  token: process.env.TOKEN,
+  group_id: process.env.GROUP_ID
+})
 
 bot.command('/start', (ctx) => {
   ctx.reply('Hello!')
@@ -45,7 +48,7 @@ bot.startPolling()
 Create bot.
 
 ```javascript
-const bot = new API({
+const bot = new VkBot({
   token: process.env.TOKEN,
   group_id: process.env.GROUP_ID
 })

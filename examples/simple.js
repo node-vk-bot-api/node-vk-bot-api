@@ -1,4 +1,4 @@
-const VkBot = require('../')
+const VkBot = require('../lib')
 
 const bot = new VkBot({
   token: process.env.TOKEN,
