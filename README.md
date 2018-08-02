@@ -27,92 +27,97 @@ bot.startPolling()
 
 ## Methods
 
-* [constructor(options)](#constructoroptions)
-* [.command(command, callback)](#commandcommand-callback)
-* [.hears(command, callback)](#hearscommand-callback)
-* [.on(callback)](#oncallback)
-* [.startPolling()](#startPolling)
+* [constructor(settings)](#constructorsettings)
+* [.use(middleware)]
+* [.command(triggers, ...middlewares)]
+* [.on(...middlewares)]
+* [.sendMessage(userId, message, attachment, sticker, keyboard)]
+* [.startPolling()]
 
-### constructor(options)
+### constructor(settings)
 
-| Parameter  | Type      | Required  |
-|:-----------|:---------:| ---------:|
-| token      | string    | yes       |
+| Parameter | Type | Required |
+|:----------|:----:| ---------:|
+| settings | object | yes |
+| settings.token | string | yes |
+| settings.group_id | number | yes |
 
 Create bot.
 
 ```javascript
-const bot = new API(process.env.TOKEN)
-```
-
-### .command(command, callback)
-
-| Parameter  | Type      | Required  |
-| -----------|:---------:| ---------:|
-| command    | string    | yes       |
-| callback   | function  | yes       |
-
-Add command w/ strict match.
-
-```javascript
-bot.command('start', ({ reply }) => reply('This is start!'))
-```
-
-### .hears(command, callback)
-
-| Parameter  | Type      | Required  |
-| -----------|:---------:| ---------:|
-| command    | string/regexp | yes   |
-| callback   | function  | yes       |
-
-Add command w/ match like RegEx.
-
-```javascript
-bot.hears(/(car|tesla)/, ({ reply }) => reply('I love Tesla!'))
-```
-
-### .on(callback)
-
-| Parameter  | Type      | Required  |
-|:-----------|:---------:| ---------:|
-| callback   | function  | yes       |
-
-Add reserved callback.
-
-```javascript
-bot.on(({ reply }) => {
-  reply('What?')
+const bot = new API({
+  token: process.env.TOKEN,
+  group_id: process.env.GROUP_ID
 })
 ```
 
-### .startPolling()
+### .use(middleware)
 
-Start polling.
+Add simple middleware.
 
-## Context Methods
+```javascript
+bot.use(async (ctx, next) => {
+  ctx.message.timestamp = new Date().getTime()
+  
+  next()
+})
+```
 
-* [.reply(peer_id, message, attachment, callback)](#replypeer_id-message-attachment-callback)
+### .command(triggers, ...middlewares)
 
-### .reply(peer_id, message, attachment, callback)
-
-
-| Parameter  | Type             | Requried  |
-| -----------|:----------------:| ---------:|
-| user_id     | number or array  | yes       |
-| message    | string           | yes (no, if setten attachment)   |
-| attachment | string           | yes (no, if setten message)      |
-| callback   | function         | no        |
-
-Send a message to user.
+Add middlewares with triggers.
 
 ```javascript
 bot.command('start', (ctx) => {
-  // with shortcut from context
-  ctx.reply('Hi, this is start!')
-  // function from context
-  ctx.sendMessage(ctx.peer_id, 'Hi, this is start!')
-  // simple usage
-  bot.reply(ctx.peer_id, 'Hi, this is start!')
+  ctx.reply('Hello!')
+})
+```
+
+### .on(...middlewares)
+
+Add reserved middlewares without triggers.
+
+```javascript
+bot.on((ctx) => {
+  ctx.reply('No commands for you.')
+})
+```
+
+### .sendMessage(userId, message, attachment, sticker, keyboard)
+
+Send message to user.
+
+```javascript
+bot.sendMessage(145003487, 'Hello!', 'photo1_1')
+```
+
+### .startPolling([timeout])
+
+Start polling with given timeout (25 by default).
+
+```js
+bot.startPolling()
+```
+
+## Context Methods
+
+* [.reply(message, attachment, sticker, keyboard)](#replypeer_id-message-attachment-callback)
+
+### .reply(message, attachment, sticker, keyboard)
+
+Helper method for reply to the current user.
+
+```javascript
+bot.command('start', (ctx) => {
+  // Simple usage
+  ctx.reply('Hello!', 'photo1_1')
+  
+  // Advanced usage
+  ctx.reply({
+    message: 'Hello!',
+    lat: 59.939095,
+    lng: 30.315868
+  })
 })
 ```
 

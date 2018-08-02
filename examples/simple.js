@@ -5,7 +5,7 @@ const bot = new VkBot({
   group_id: process.env.GROUP_ID,
 })
 
-bot.command('/start', (ctx) => {
+bot.on((ctx) => {
   ctx.reply('Hello!')
 })
 
