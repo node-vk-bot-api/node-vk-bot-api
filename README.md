@@ -39,12 +39,6 @@ bot.startPolling()
 
 ### constructor(settings)
 
-| Parameter | Type | Required |
-|:----------|:----:| ---------:|
-| settings | object | yes |
-| settings.token | string | yes |
-| settings.group_id | number | yes |
-
 Create bot.
 
 ```javascript
