@@ -38,6 +38,7 @@ bot.startPolling()
 * [constructor(settings)](#constructorsettings)
 * [.use(middleware)](#usemiddleware)
 * [.command(triggers, ...middlewares)](#commandtriggers-middlewares)
+* [.event(triggers, ...middlewares)](#eventtriggers-middlewares)
 * [.on(...middlewares)](#onmiddlewares)
 * [.sendMessage(userId, message, attachment, keyboard, sticker)](#sendmessageuserid-message-attachment-keyboard-sticker)
 * [.startPolling()](#startpollingtimeout)
@@ -67,11 +68,21 @@ bot.use((ctx, next) => {
 
 ### .command(triggers, ...middlewares)
 
-Add middlewares with triggers.
+Add middlewares with triggers for `message_new` event.
 
 ```javascript
 bot.command('start', (ctx) => {
   ctx.reply('Hello!')
+})
+```
+
+### .event(triggers, ...middlewares)
+
+Add middlewares with triggers for selected events.
+
+```javascript
+bot.event('message_edit', (ctx) => {
+  ctx.reply('Your message was editted')
 })
 ```
 
