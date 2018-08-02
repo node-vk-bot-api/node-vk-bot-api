@@ -8,7 +8,8 @@
 ## Install
 
 ```sh
-$ npm i node-vk-bot-api
+$ npm i node-vk-bot-api@2 -S # bots longpoll api
+$ npm i node-vk-bot-api@1 -S # user longpoll api
 ```
 
 ## Usage
