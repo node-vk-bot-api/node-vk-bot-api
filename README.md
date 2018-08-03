@@ -174,6 +174,8 @@ bot.command('/mood', (ctx) => {
 
 Store anything for current user in local memory.
 
+### Usage
+
 ```javascript
 const VkBot = require('node-vk-bot-api')
 const Session = require('node-vk-bot-api/lib/session')
@@ -195,6 +197,21 @@ bot.on((ctx) => {
 
 bot.startPolling()
 ```
+
+### API
+
+#### Options
+
+* `key`: Context property name (default: `session`)
+* `getSessionKey`: Getter for session key
+
+##### Default `getSessionKey(ctx)`
+
+```js
+const getSessionKey = (ctx) => {
+ return `${ctx.message.from_id}:${ctx.message.from_id}` 
+}
+````
 
 ## License
 
