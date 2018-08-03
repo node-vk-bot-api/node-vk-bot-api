@@ -217,7 +217,7 @@ const getSessionKey = (ctx) => {
 
 Scene manager.
 ```javascript
-const VkBot = require('node-vk-bot-api/lib')
+const VkBot = require('node-vk-bot-api')
 const Scene = require('node-vk-bot-api/lib/scene')
 const Session = require('node-vk-bot-api/lib/session')
 const Stage = require('node-vk-bot-api/lib/stage')
