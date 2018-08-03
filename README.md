@@ -226,7 +226,6 @@ const bot = new VkBot({
   token: process.env.TOKEN,
   group_id: process.env.GROUP_ID,
 })
-const session = new Session()
 const scene = new Scene('meet',
   (ctx) => {
     ctx.scene.next()
@@ -243,7 +242,9 @@ const scene = new Scene('meet',
 
     ctx.scene.leave()
     ctx.reply(`Nice to meet you, ${ctx.session.name} (${ctx.session.age} years old)`)
-  })
+  }
+)
+const session = new Session()
 const stage = new Stage(scene)
 
 bot.use(session.middleware())
