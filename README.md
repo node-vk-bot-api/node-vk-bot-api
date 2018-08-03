@@ -172,7 +172,7 @@ bot.command('/mood', (ctx) => {
 
 ## Sessions
 
-Store anything for current user in local memory.
+Store anything for current user in local (or [redis](https://github.com/node-vk-bot-api/node-vk-bot-api-session-redis)) memory.
 
 ### Usage
 
