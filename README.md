@@ -270,9 +270,10 @@ bot.startPolling()
 #### Context
 
 ```js
-ctx.scene.enter(name) // enter in scene
-ctx.scene.leave()     // leave from scene
-ctx.scene.next()      // go to the next step in scene
+ctx.scene.enter(name)       // Enter in scene
+ctx.scene.leave()           // Leave from scene
+ctx.scene.next()            // Go to the next step in scene
+ctx.scene.selectStep(index) // Go to the selected step in scene
 ```
 
 ## License
