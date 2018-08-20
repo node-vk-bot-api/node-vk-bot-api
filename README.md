@@ -122,9 +122,9 @@ bot.startPolling()
 
 ## Context Methods
 
-* [.reply(message, attachment, keyboard, sticker)](#replymessage-attachment-keyboard-sticker)
+* [.reply(message, attachment, markup, sticker)](#replymessage-attachment-keyboard-sticker)
 
-### .reply(message, attachment, keyboard, sticker)
+### .reply(message, attachment, markup, sticker)
 
 Helper method for reply to the current user.
 
@@ -136,38 +136,38 @@ bot.command('start', (ctx) => {
 
 ## Markup
 
-Add keyboard in message.
+### Keyboards
 
-```javascript
-const VkBot = require('node-vk-bot-api')
-const Markup = require('node-vk-bot-api/lib/markup')
+* `Markup.keyboard(buttons)`: Create keyboard
+* `Markup.button(label, color, payload)`: Create custom button
+* `Markup.oneTime()`: Set oneTime to keyboard
 
-const bot = new VkBot({
-  token: process.env.TOKEN,
-  group_id: process.env.GROUP_ID,
-})
+#### Simple usage
 
-bot.command('/sport', (ctx) => {
-  ctx.reply('Select your sport', null, Markup
-    .keyboard([
-      'Football',
-      'Basketball',
-    ])
-    .oneTime())
-})
+```js
+ctx.reply('Select your sport', null, Markup
+  .keyboard([
+    'Football',
+    'Basketball',
+  ])
+  .oneTime()
+)
+```
 
-bot.command('/mood', (ctx) => {
-  ctx.reply('How are you doing?', null, Markup
-    .keyboard([
-      [
-        Markup.button('Normally', 'primary'),
-      ],
-      [
-        Markup.button('Fine', 'positive'),
-        Markup.button('Bad', 'negative'),
-      ],
-    ]))
-})
+#### Advanced usage
+
+```js
+ctx.reply('How are you doing?', null, Markup
+  .keyboard([
+    [
+      Markup.button('Normally', 'primary'),
+    ],
+    [
+      Markup.button('Fine', 'positive'),
+      Markup.button('Bad', 'negative'),
+    ],
+  ])
+)
 ```
 
 ## Sessions
@@ -262,13 +262,18 @@ bot.startPolling()
 #### Stage
 
 * `constructor(...scenes)`: Register scenes
-* `enter(name)`: Enter in scene
-* `leave()`: Leave from scene
-* `next()`: Go to the next step in scene
 
 #### Scene
 
 * `constructor(name, ...middlewares)`: Create scene
+
+#### Context
+
+```js
+ctx.scene.enter(name) // enter in scene
+ctx.scene.leave()     // leave from scene
+ctx.scene.next()      // go to the next step in scene
+```
 
 ## License
 
