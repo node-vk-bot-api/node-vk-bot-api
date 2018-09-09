@@ -15,6 +15,7 @@ $ npm i node-vk-bot-api@1 -S # user longpoll api
 ```
 
 ### Set up your VK bot (important)
+
 1. Open group settings -> API Usage -> Long Poll API
 2. Set "Long Poll API" enabled
 3. Change "API version" to 5.80 
