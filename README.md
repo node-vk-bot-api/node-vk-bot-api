@@ -7,10 +7,18 @@
 
 ## Install
 
+### Install package
+
 ```sh
 $ npm i node-vk-bot-api@2 -S # bots longpoll api
 $ npm i node-vk-bot-api@1 -S # user longpoll api
 ```
+
+### Set up your VK bot (important)
+1. Open group settings -> API Usage -> Long Poll API
+2. Set "Long Poll API" enabled
+3. Change "API version" to 5.80 
+4. Open "Event Types" tab and turn on "Incoming message"
 
 ## Usage
 
