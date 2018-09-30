@@ -1,9 +1,6 @@
 const VkBot = require('../lib')
 
-const bot = new VkBot({
-  token: process.env.TOKEN,
-  group_id: process.env.GROUP_ID,
-})
+const bot = new VkBot(process.env.TOKEN)
 
 bot.on((ctx) => {
   ctx.reply('Hello!')

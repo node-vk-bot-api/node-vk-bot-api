@@ -1,10 +1,7 @@
 const VkBot = require('../lib')
 const Markup = require('../lib/markup')
 
-const bot = new VkBot({
-  token: process.env.TOKEN,
-  group_id: process.env.GROUP_ID,
-})
+const bot = new VkBot(process.env.TOKEN)
 
 bot.command('/sport', (ctx) => {
   ctx.reply('Select your sport', null, Markup

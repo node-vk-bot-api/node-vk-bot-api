@@ -1,10 +1,7 @@
 const VkBot = require('../lib')
 const Session = require('../lib/session')
 
-const bot = new VkBot({
-  token: process.env.TOKEN,
-  group_id: process.env.GROUP_ID,
-})
+const bot = new VkBot(process.env.TOKEN)
 const session = new Session()
 
 bot.use(session.middleware())

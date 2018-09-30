@@ -3,10 +3,7 @@ const Session = require('../lib/session')
 const Stage = require('../lib/stage')
 const Scene = require('../lib/scene')
 
-const bot = new VkBot({
-  token: process.env.TOKEN,
-  group_id: process.env.GROUP_ID,
-})
+const bot = new VkBot(process.env.TOKEN)
 const session = new Session()
 const scene = new Scene('meet',
   (ctx) => {
