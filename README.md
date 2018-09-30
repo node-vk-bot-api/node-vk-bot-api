@@ -17,10 +17,7 @@ $ npm i node-vk-bot-api@1 -S # user longpoll api
 ```javascript
 const VkBot = require('node-vk-bot-api')
 
-const bot = new VkBot({
-  token: process.env.TOKEN,
-  group_id: process.env.GROUP_ID
-})
+const bot = new VkBot(process.env.TOKEN)
 
 bot.command('/start', (ctx) => {
   ctx.reply('Hello!')
@@ -48,9 +45,14 @@ bot.startPolling()
 Create bot.
 
 ```javascript
+// Simple usage
+const bot = new VkBot(process.env.TOKEN)
+
+// Advanced usage
 const bot = new VkBot({
   token: process.env.TOKEN,
-  group_id: process.env.GROUP_ID
+  group_id: process.env.GROUP_ID,
+  execute_timeout: process.env.EXECUTE_TIMEOUT,
 })
 ```
 
@@ -108,7 +110,7 @@ bot.sendMessage(145003487, 'Hello!', 'photo1_1')
 bot.sendMessage(145003487, {
   message: 'Hello!',
   lat: 59.939095,
-  lng: 30.315868
+  lng: 30.315868,
 })
 ```
 
@@ -180,10 +182,7 @@ Store anything for current user in local (or [redis](https://github.com/node-vk-
 const VkBot = require('node-vk-bot-api')
 const Session = require('node-vk-bot-api/lib/session')
 
-const bot = new VkBot({
-  token: process.env.TOKEN,
-  group_id: process.env.GROUP_ID,
-})
+const bot = new VkBot(process.env.TOKEN)
 const session = new Session()
 
 bot.use(session.middleware())
@@ -209,7 +208,7 @@ bot.startPolling()
 
 ```js
 const getSessionKey = (ctx) => {
- return `${ctx.message.from_id}:${ctx.message.from_id}` 
+  return `${ctx.message.from_id}:${ctx.message.from_id}` 
 }
 ````
 
@@ -222,10 +221,7 @@ const Scene = require('node-vk-bot-api/lib/scene')
 const Session = require('node-vk-bot-api/lib/session')
 const Stage = require('node-vk-bot-api/lib/stage')
 
-const bot = new VkBot({
-  token: process.env.TOKEN,
-  group_id: process.env.GROUP_ID,
-})
+const bot = new VkBot(process.env.TOKEN)
 const scene = new Scene('meet',
   (ctx) => {
     ctx.scene.next()
@@ -242,7 +238,7 @@ const scene = new Scene('meet',
 
     ctx.scene.leave()
     ctx.reply(`Nice to meet you, ${ctx.session.name} (${ctx.session.age} years old)`)
-  }
+  },
 )
 const session = new Session()
 const stage = new Stage(scene)
