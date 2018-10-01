@@ -1,6 +1,6 @@
 {
   "name": "node-vk-bot-api",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "🤖 Vk bot framework for Node.js",
   "main": "lib/index.js",
   "scripts": {
