@@ -30,6 +30,10 @@ bot.startPolling()
 
 [There's a few simple examples.](/examples)
 
+## Community support
+
+Any questions you can ask in the [telegram chat](https://tele.click/joinchat/BXuo0kxMRNVyfdKKjMHpQQ). [russian/english]
+
 ## Methods
 
 * [constructor(settings)](#constructorsettings)
