@@ -42,7 +42,7 @@ Any questions you can ask in the [telegram chat](https://tele.click/joinchat/BXu
 * [.event(triggers, ...middlewares)](#eventtriggers-middlewares)
 * [.on(...middlewares)](#onmiddlewares)
 * [.sendMessage(userId, message, attachment, keyboard, sticker)](#sendmessageuserid-message-attachment-keyboard-sticker)
-* [.startPolling()](#startpollingtimeout)
+* [.startPolling([callback])](#startpollingcallback)
 
 ### constructor(settings)
 
@@ -56,7 +56,8 @@ const bot = new VkBot(process.env.TOKEN)
 const bot = new VkBot({
   token: process.env.TOKEN,
   group_id: process.env.GROUP_ID,
-  execute_timeout: process.env.EXECUTE_TIMEOUT,
+  execute_timeout: process.env.EXECUTE_TIMEOUT, // in ms   (50 by default)
+  polling_timeout: process.env.POLLING_TIMEOUT, // in secs (25 by default)
 })
 ```
 
@@ -118,12 +119,14 @@ bot.sendMessage(145003487, {
 })
 ```
 
-### .startPolling([timeout])
+### .startPolling([callback])
 
-Start polling with given timeout (25 by default).
+Start polling with optional callback.
 
 ```js
-bot.startPolling()
+bot.startPolling(() => {
+  console.log('Bot started.')
+})
 ```
 
 ## Context Methods
