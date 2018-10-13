@@ -22,12 +22,6 @@ const scene = new Scene('meet',
     ctx.scene.leave()
     ctx.reply(`Nice to meet you, ${ctx.session.name} (${ctx.session.age} years old)`)
   })
-
-scene.command(/back/, (ctx) => {
-  ctx.scene.leave()
-  ctx.reply('OK, cancelled.')
-})
-
 const stage = new Stage(scene)
 
 bot.use(session.middleware())
