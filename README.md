@@ -269,6 +269,7 @@ bot.startPolling()
 #### Scene
 
 * `constructor(name, ...middlewares)`: Create scene
+* `.command(triggers, ...middlewares)`: Create commands for scene
 
 #### Context
 
