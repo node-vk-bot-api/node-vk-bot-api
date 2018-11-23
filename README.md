@@ -1,5 +1,6 @@
 [![node-vk-bot-api](https://img.shields.io/npm/v/node-vk-bot-api.svg?style=flat-square)](https://www.npmjs.com/package/node-vk-bot-api/)
 ![node-vk-bot-api](https://img.shields.io/badge/code%20style-airbnb-brightgreen.svg?style=flat-square)
+![node-vk-bot-api](https://img.shields.io/travis/node-vk-bot-api/node-vk-bot-api.svg?branch=master&style=flat-square)
 
 # node-vk-bot-api
 
@@ -26,6 +27,30 @@ bot.command('/start', (ctx) => {
 bot.startPolling()
 ```
 
+## Webhooks
+
+```javascript
+const express = require('express')
+const bodyParser = require('body-parser')
+const VkBot = require('node-vk-bot-api')
+
+const app = express()
+const bot = new VkBot({
+  token: process.env.TOKEN,
+  confirmation: process.env.CONFIRMATION,
+})
+
+bot.on((ctx) => {
+  ctx.reply('Hello!')
+})
+
+app.use(bodyParser.json())
+
+app.post('/', bot.webhookCallback)
+
+app.listen(process.env.PORT)
+```
+
 ## Examples
 
 [There's a few simple examples.](/examples)
@@ -43,6 +68,7 @@ Any questions you can ask in the [telegram chat](https://tele.click/joinchat/BXu
 * [.on(...middlewares)](#onmiddlewares)
 * [.sendMessage(userId, message, attachment, keyboard, sticker)](#sendmessageuserid-message-attachment-keyboard-sticker)
 * [.startPolling([callback])](#startpollingcallback)
+* [.webhookCallback(...args)](#webhookcallbackargs)
 
 ### constructor(settings)
 
@@ -58,6 +84,10 @@ const bot = new VkBot({
   group_id: process.env.GROUP_ID,
   execute_timeout: process.env.EXECUTE_TIMEOUT, // in ms   (50 by default)
   polling_timeout: process.env.POLLING_TIMEOUT, // in secs (25 by default)
+
+  // webhooks options only
+  secret: process.env.SECRET,                   // secret key (optional)
+  confirmation: process.env.CONFIRMATION,       // confirmation string
 })
 ```
 
@@ -127,6 +157,18 @@ Start polling with optional callback.
 bot.startPolling(() => {
   console.log('Bot started.')
 })
+```
+
+### .webhookCallback(...args)
+
+Get webhook callback.
+
+```js
+// express
+bot.webhookCallback(req, res, next)
+
+// koa
+bot.webhookCallback(ctx, next)
 ```
 
 ## Context Methods
