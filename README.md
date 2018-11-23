@@ -1,5 +1,6 @@
 [![node-vk-bot-api](https://img.shields.io/npm/v/node-vk-bot-api.svg?style=flat-square)](https://www.npmjs.com/package/node-vk-bot-api/)
 ![node-vk-bot-api](https://img.shields.io/badge/code%20style-airbnb-brightgreen.svg?style=flat-square)
+![node-vk-bot-api](https://img.shields.io/travis/node-vk-bot-api/node-vk-bot-api.svg?branch=master&style=flat-square)
 
 # node-vk-bot-api
 

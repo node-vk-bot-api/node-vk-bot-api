@@ -4,6 +4,7 @@
   "description": "🤖 Vk bot framework for Node.js",
   "main": "lib/index.js",
   "scripts": {
+    "test": "mocha --exit --timeout 5000",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix"
   },
@@ -45,8 +46,11 @@
     "node": ">=8.0.0"
   },
   "devDependencies": {
+    "@bifot/eslint-config": "^1.0.2",
+    "chai": "^4.2.0",
     "eslint": "^4.19.1",
     "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0"
+    "eslint-plugin-import": "^2.13.0",
+    "mocha": "^5.2.0"
   }
 }
