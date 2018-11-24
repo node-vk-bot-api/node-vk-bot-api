@@ -58,6 +58,12 @@ app.listen(process.env.PORT)
 
 Any questions you can ask in the [telegram chat](https://tele.click/joinchat/BXuo0kxMRNVyfdKKjMHpQQ). [russian/english]
 
+## Tests
+
+```sh
+$ npm test
+```
+
 ## Methods
 
 * [constructor(settings)](#constructorsettings)
