@@ -4,13 +4,12 @@
 
 # node-vk-bot-api
 
-🤖 VK bot framework for Node.js, based on [Bots Long Poll API](https://vk.com/dev/bots_longpoll).
+🤖 VK bot framework for Node.js, based on [Bots Long Poll API](https://vk.com/dev/bots_longpoll) and [Callback API](https://vk.com/dev.php?method=callback_api).
 
 ## Install
 
 ```sh
-$ npm i node-vk-bot-api@2 -S # bots longpoll api
-$ npm i node-vk-bot-api@1 -S # user longpoll api
+$ npm i node-vk-bot-api -S
 ```
 
 ## Usage
@@ -58,6 +57,12 @@ app.listen(process.env.PORT)
 ## Community support
 
 Any questions you can ask in the [telegram chat](https://tele.click/joinchat/BXuo0kxMRNVyfdKKjMHpQQ). [russian/english]
+
+## Tests
+
+```sh
+$ npm test
+```
 
 ## Methods
 
@@ -311,14 +316,15 @@ bot.startPolling()
 #### Scene
 
 * `constructor(name, ...middlewares)`: Create scene
+* `.command(triggers, ...middlewares)`: Create commands for scene
 
 #### Context
 
 ```js
-ctx.scene.enter(name)       // Enter in scene
-ctx.scene.leave()           // Leave from scene
-ctx.scene.next()            // Go to the next step in scene
-ctx.scene.selectStep(index) // Go to the selected step in scene
+ctx.scene.enter(name, [step]) // Enter in scene
+ctx.scene.leave()             // Leave from scene
+ctx.scene.next()              // Go to the next step in scene
+ctx.scene.selectStep(index)   // Go to the selected step in scene
 ```
 
 ## License

@@ -1,7 +1,7 @@
 {
   "name": "node-vk-bot-api",
-  "version": "2.3.0",
-  "description": "🤖 Vk bot framework for Node.js",
+  "version": "2.4.0",
+  "description": "🤖 VK bot framework for Node.js, based on Bots Long Poll API and Callback API",
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha --exit --timeout 5000",
@@ -28,7 +28,10 @@
     "vkontakte-sdk",
     "vkontakte-api",
     "vkontakte-client",
-    "vkapi"
+    "vkapi",
+    "webhooks",
+    "callback api",
+    "callback"
   ],
   "author": "Mikhail Semin",
   "license": "MIT",
