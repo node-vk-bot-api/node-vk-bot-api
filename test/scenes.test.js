@@ -3,7 +3,6 @@ const VkBot = require('../lib')
 const Scene = require('../lib/scene')
 const Stage = require('../lib/stage')
 const Session = require('../lib/session')
-const { handleUpdate } = require('./config')
 
 const bot = new VkBot('TOKEN')
 
@@ -103,7 +102,7 @@ describe('scenes', () => {
         done()
       })
 
-      handleUpdate(bot, {
+      bot.next({
         message: {
           type: 'message_new',
           text: 'Hello!',
@@ -120,7 +119,7 @@ describe('scenes', () => {
 
           ctx.scene.next()
 
-          handleUpdate(bot, {
+          bot.next({
             message: {
               type: 'message_new',
               text: 'next',
@@ -147,7 +146,7 @@ describe('scenes', () => {
         ctx.scene.enter('test')
       })
 
-      handleUpdate(bot, {
+      bot.next({
         message: {
           type: 'message_new',
           text: 'go',
@@ -164,7 +163,7 @@ describe('scenes', () => {
 
           ctx.scene.next()
 
-          handleUpdate(bot, {
+          bot.next({
             message: {
               type: 'message_new',
               text: '/cancel',
@@ -197,7 +196,7 @@ describe('scenes', () => {
         ctx.scene.enter('test')
       })
 
-      handleUpdate(bot, {
+      bot.next({
         message: {
           type: 'message_new',
           text: 'go',
