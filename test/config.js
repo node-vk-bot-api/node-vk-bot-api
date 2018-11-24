@@ -24,3 +24,9 @@ module.exports.sendRequest = (type, body, middleware) => {
     ? sendRequestViaKoa(ctx, middleware)
     : sendRequestViaExpress(ctx, middleware)
 }
+
+module.exports.handleUpdate = (bot, update) => new Promise((resolve) => {
+  bot.next(update)
+
+  setTimeout(resolve, 100)
+})
