@@ -1,10 +1,9 @@
 {
   "name": "node-vk-bot-api",
-  "version": "2.3.0",
-  "description": "🤖 VK bot framework for Node.js, based on Bots Long Poll API and Callback API",
+  "version": "2.1.9",
+  "description": "🤖 Vk bot framework for Node.js",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha --exit --timeout 5000",
     "eslint": "eslint .",
     "eslint:fix": "eslint . --fix"
   },
