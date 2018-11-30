@@ -1,3 +1,17 @@
 {
-  "extends": "@bifot/eslint-config"
+  "extends": "@bifot/eslint-config",
+  "rules": {
+    "no-shadow": "off",
+    "no-underscore-dangle": "off",
+    "import/no-unresolved": "off",
+    "no-plusplus": "off",
+    "func-names": "off",
+    "consistent-return": "off",
+    "prefer-destructuring": "off",
+    "max-len": ["error", { "code": 120 }],
+    "camelcase": ["error", {
+      "properties": "never",
+      "ignoreDestructuring": true
+    }]
+  }
 }
