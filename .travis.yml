@@ -13,4 +13,5 @@ test:
   stage: test
   script:
     - npm i
+    - npm run eslint
     - npm test

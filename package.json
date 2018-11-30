@@ -1,6 +1,6 @@
 {
   "name": "node-vk-bot-api",
-  "version": "2.4.0",
+  "version": "2.4.1",
   "description": "🤖 VK bot framework for Node.js, based on Bots Long Poll API and Callback API",
   "main": "lib/index.js",
   "scripts": {
@@ -51,7 +51,7 @@
   "devDependencies": {
     "@bifot/eslint-config": "^1.0.2",
     "chai": "^4.2.0",
-    "eslint": "^4.19.1",
+    "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
     "mocha": "^5.2.0"

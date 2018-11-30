@@ -1,26 +1,26 @@
 const sendRequestViaKoa = (ctx, middleware) => {
-  middleware(ctx, () => {})
+  middleware(ctx, () => {});
 
-  return ctx
-}
+  return ctx;
+};
 
 const sendRequestViaExpress = (ctx, middleware) => {
-  middleware(ctx.req, ctx.res, () => {})
+  middleware(ctx.req, ctx.res, () => {});
 
-  return ctx
-}
+  return ctx;
+};
 
 module.exports.sendRequest = (type, body, middleware) => {
   const ctx = {
     req: { body },
     res: {
       send: (body) => {
-        ctx.res.body = body
+        ctx.res.body = body;
       },
     },
-  }
+  };
 
   return type === 'koa'
     ? sendRequestViaKoa(ctx, middleware)
-    : sendRequestViaExpress(ctx, middleware)
-}
+    : sendRequestViaExpress(ctx, middleware);
+};

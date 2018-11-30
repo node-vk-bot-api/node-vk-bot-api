@@ -1,7 +1,7 @@
-const VkBot = require('../lib')
-const Markup = require('../lib/markup')
+const VkBot = require('../lib');
+const Markup = require('../lib/markup');
 
-const bot = new VkBot(process.env.TOKEN)
+const bot = new VkBot(process.env.TOKEN);
 
 bot.command('/sport', (ctx) => {
   ctx.reply('Select your sport', null, Markup
@@ -9,8 +9,8 @@ bot.command('/sport', (ctx) => {
       'Football',
       'Basketball',
     ])
-    .oneTime())
-})
+    .oneTime());
+});
 
 bot.command('/mood', (ctx) => {
   ctx.reply('How are you doing?', null, Markup
@@ -22,7 +22,7 @@ bot.command('/mood', (ctx) => {
         Markup.button('Fine', 'positive'),
         Markup.button('Bad', 'negative'),
       ],
-    ]))
-})
+    ]));
+});
 
-bot.startPolling()
+bot.startPolling();
