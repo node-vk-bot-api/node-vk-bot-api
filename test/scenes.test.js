@@ -203,5 +203,39 @@ describe('scenes', () => {
         },
       });
     });
+
+    it('should get and step scene step', (done) => {
+      bot.middlewares = [];
+
+      const scene = new Scene('test',
+        (ctx) => {
+          expect(ctx.scene.step).to.be.equal(0);
+
+          ctx.scene.step = 4;
+
+          testSceneContext(ctx, 'test', 4);
+
+          done();
+        });
+
+      const session = new Session();
+      const stage = new Stage(scene);
+
+      bot.use(session.middleware());
+      bot.use(stage.middleware());
+
+      bot.on((ctx) => {
+        testSceneContext(ctx);
+
+        ctx.scene.enter('test');
+      });
+
+      bot.next({
+        message: {
+          type: 'message_new',
+          text: 'go',
+        },
+      });
+    });
   });
 });

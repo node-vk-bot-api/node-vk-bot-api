@@ -324,7 +324,8 @@ bot.startPolling()
 ctx.scene.enter(name, [step]) // Enter in scene
 ctx.scene.leave()             // Leave from scene
 ctx.scene.next()              // Go to the next step in scene
-ctx.scene.selectStep(index)   // Go to the selected step in scene
+ctx.scene.step                // Getter for step in scene
+ctx.scene.step=               // Setter for step in scene
 ```
 
 ## License
