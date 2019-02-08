@@ -79,4 +79,13 @@ describe('markup', () => {
 
     test(keyboard, false, buttons);
   });
+
+  it('should create keyboard with two strings', () => {
+    const buttons = ['one', 'two', 'three', 'four', 'five', 'six'];
+    const keyboard = Markup.keyboard(buttons);
+
+    expect(keyboard.__keyboard.buttons).to.be.an('array').to.have.length(2);
+    expect(keyboard.__keyboard.buttons[0]).to.be.an('array').to.have.length(4);
+    expect(keyboard.__keyboard.buttons[1]).to.be.an('array').to.have.length(2);
+  });
 });
