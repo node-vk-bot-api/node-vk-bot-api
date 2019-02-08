@@ -194,7 +194,7 @@ bot.command('start', (ctx) => {
 
 ### Keyboards
 
-* `Markup.keyboard(buttons)`: Create keyboard
+* `Markup.keyboard(buttons, options)`: Create keyboard
 * `Markup.button(label, color, payload)`: Create custom button
 * `Markup.oneTime()`: Set oneTime to keyboard
 
@@ -224,6 +224,67 @@ ctx.reply('How are you doing?', null, Markup
     ],
   ])
 )
+```
+
+### .keyboard(buttons, options)
+
+Create keyboard with optional settings.
+
+```js
+/*
+
+  Each string has maximum 2 columns.
+
+  | one   | two   |
+  | three | four  |
+  | five  | six   |
+
+ */
+
+Markup.keyboard([
+  'one',
+  'two',
+  'three',
+  'four',
+  'five',
+  'six',
+], { columns: 2 });
+```
+
+```js
+/*
+
+  By default, columns count for each string is 4.
+
+  | one | two | three |
+
+ */
+
+Markup.keyboard([
+  'one',
+  'two',
+  'three'
+]);
+```
+
+### .button(label, color, payload)
+
+Create custom button.
+
+```js
+Markup.button('Start', 'positive', {
+  foo: 'bar',
+});
+```
+
+### .oneTime()
+
+Helper method for create one time keyboard.
+
+```js
+Markup
+  .keyboard(['Start', 'Help'])
+  .oneTime();
 ```
 
 ## Sessions
