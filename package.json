@@ -1,6 +1,6 @@
 {
   "name": "node-vk-bot-api",
-  "version": "2.5.0",
+  "version": "2.4.8",
   "description": "🤖 VK bot framework for Node.js, based on Bots Long Poll API and Callback API",
   "main": "lib/index.js",
   "scripts": {
