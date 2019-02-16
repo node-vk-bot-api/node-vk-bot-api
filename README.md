@@ -69,6 +69,7 @@ $ npm test
 * [constructor(settings)](#constructorsettings)
 * [.use(middleware)](#usemiddleware)
 * [.command(triggers, ...middlewares)](#commandtriggers-middlewares)
+* [.button(triggers, ...middlewares)](#buttontriggers-middlewares)
 * [.event(triggers, ...middlewares)](#eventtriggers-middlewares)
 * [.on(...middlewares)](#onmiddlewares)
 * [.sendMessage(userId, message, attachment, keyboard, sticker)](#sendmessageuserid-message-attachment-keyboard-sticker)
@@ -114,6 +115,16 @@ Add middlewares with triggers for `message_new` event.
 
 ```javascript
 bot.command('start', (ctx) => {
+  ctx.reply('Hello!')
+})
+```
+
+### .button(triggers, ...middlewares)
+
+Add middlewares with triggers for button payload.
+
+```javascript
+bot.button([{ command: 'start' }, 'start'], (ctx) => {
   ctx.reply('Hello!')
 })
 ```

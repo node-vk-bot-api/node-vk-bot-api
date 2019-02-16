@@ -25,4 +25,18 @@ bot.command('/mood', (ctx) => {
     ]));
 });
 
+bot.command('/stats', (ctx) => {
+  ctx.reply('Select the period of time:', null, Markup
+    .keyboard([
+      [
+        Markup.button('For month', 'primary', { command: 'stats', period: 'month' }),
+        Markup.button('For year', 'default', 'year'),
+      ],
+    ])
+    .oneTime());
+});
+
+bot.button({ command: 'stats', period: 'month' }, ctx => ctx.reply('For month'));
+bot.button('year', ctx => ctx.reply('For year'));
+
 bot.startPolling();
