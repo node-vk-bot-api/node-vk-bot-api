@@ -1,7 +1,7 @@
 const { expect } = require('chai');
 const VkBot = require('../lib');
 
-const bot = new VkBot('TOKEN');
+const bot = new VkBot(process.env.TOKEN);
 
 describe('triggers', () => {
   beforeEach(() => {
@@ -9,7 +9,7 @@ describe('triggers', () => {
   });
 
   describe('unit', () => {
-    it('should define valid text trigger', () => {
+    it('should create text trigger', () => {
       bot.command('Start', () => {});
 
       expect(bot.middlewares[0]).to.be.an('object');
@@ -19,7 +19,7 @@ describe('triggers', () => {
       expect(bot.middlewares[0].triggers[0]).to.be.a('string');
     });
 
-    it('should define valid button trigger', () => {
+    it('should create button trigger', () => {
       bot.button({ command: 'start' }, () => {});
 
       expect(bot.middlewares[0]).to.be.an('object');
@@ -34,7 +34,19 @@ describe('triggers', () => {
 
   describe('e2e', () => {
     it('should match text trigger', (done) => {
+      bot.command('help', () => done());
+
+      bot.next({
+        message: {
+          type: 'message_new',
+          text: 'help me, please',
+        },
+      });
+    });
+
+    it('should match regex trigger', (done) => {
       bot.command(/[sс]t?a[Rр]t/g, () => done());
+
       bot.next({
         message: {
           type: 'message_new',
@@ -43,9 +55,9 @@ describe('triggers', () => {
       });
     });
 
-    it('should execute button trigger and not text', (done) => {
+    it('should match button trigger', (done) => {
       bot.command({ command: 'start' }, () => {
-        throw new Error('text trigger was called');
+        throw new Error('Command was triggered');
       });
 
       bot.button({ command: 'start' }, () => {
