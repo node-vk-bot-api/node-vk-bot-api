@@ -1,38 +1,63 @@
 const { expect } = require('chai');
 const VkBot = require('../lib');
+const { TRIGGER_TYPES } = require('../lib/constants');
 
 const bot = new VkBot(process.env.TOKEN);
 
 describe('triggers', () => {
+  const test = (middleware, triggers, type) => {
+    expect(middleware).to.be.an('object');
+    expect(middleware.fn).to.be.a('function');
+    expect(middleware.triggers).to.be.an('array').to.have.length(triggers.length);
+    expect(middleware.type).to.be.equal(type);
+
+    triggers.forEach((trigger, index) => {
+      expect(middleware.triggers[index], trigger);
+    });
+  };
+
   beforeEach(() => {
     bot.middlewares = [];
   });
 
   describe('unit', () => {
-    it('should create text trigger', () => {
-      bot.command('Start', () => {});
+    it('should create event trigger', () => {
+      bot.event('message_reply', () => {});
 
-      expect(bot.middlewares[0]).to.be.an('object');
-      expect(bot.middlewares[0].fn).to.be.a('function');
-      expect(bot.middlewares[0].triggerType).to.be.a('string').and.equal('text');
-      expect(bot.middlewares[0].triggers).to.be.an('array').and.to.have.length(1);
-      expect(bot.middlewares[0].triggers[0]).to.be.a('string');
+      test(bot.middlewares[0], ['message_reply'], TRIGGER_TYPES.EVENT);
+    });
+
+    it('should create text trigger', () => {
+      bot.command('start', () => {});
+
+      test(bot.middlewares[0], ['start'], TRIGGER_TYPES.TEXT);
+    });
+
+    it('should create text trigger without commands', () => {
+      bot.on(() => {});
+
+      test(bot.middlewares[0], [], TRIGGER_TYPES.TEXT);
     });
 
     it('should create button trigger', () => {
       bot.button({ command: 'start' }, () => {});
 
-      expect(bot.middlewares[0]).to.be.an('object');
-      expect(bot.middlewares[0].fn).to.be.a('function');
-      expect(bot.middlewares[0].triggerType).to.be.a('string').and.equal('payload');
-      expect(bot.middlewares[0].triggers).to.be.an('array').and.to.have.length(1);
-      expect(bot.middlewares[0].triggers[0]).to.be.an('object').and.satisfy(
-        value => JSON.stringify(value) === JSON.stringify({ command: 'start' }),
-      );
+      test(bot.middlewares[0], [JSON.stringify({ command: 'start' })], TRIGGER_TYPES.PAYLOAD);
     });
   });
 
   describe('e2e', () => {
+    it('should match event trigger', (done) => {
+      bot.event('message_reply', () => done());
+
+      bot.next({
+        message: {
+          type: 'message_reply',
+          text: 'Bye!',
+        },
+      });
+    });
+
     it('should match text trigger', (done) => {
       bot.command('help', () => done());
 
@@ -45,12 +70,12 @@ describe('triggers', () => {
     });
 
     it('should match regex trigger', (done) => {
-      bot.command(/[sс]t?a[Rр]t/g, () => done());
+      bot.command(/^hello/i, () => done());
 
       bot.next({
         message: {
           type: 'message_new',
-          text: 'сaRt',
+          text: 'Hello, world!',
         },
       });
     });
