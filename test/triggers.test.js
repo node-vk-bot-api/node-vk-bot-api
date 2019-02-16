@@ -58,6 +58,17 @@ describe('triggers', () => {
       });
     });
 
+    it('should match text trigger without commands', (done) => {
+      bot.on(() => done());
+
+      bot.next({
+        message: {
+          type: 'message_new',
+          text: 'AJSDkj',
+        },
+      });
+    });
+
     it('should match text trigger', (done) => {
       bot.command('help', () => done());
 
@@ -80,11 +91,7 @@ describe('triggers', () => {
       });
     });
 
-    it('should match button trigger', (done) => {
-      bot.command({ command: 'start' }, () => {
-        throw new Error('Command was triggered');
-      });
-
+    it('should match button trigger with payload json', (done) => {
       bot.button({ command: 'start' }, () => {
         done();
       });
@@ -94,6 +101,20 @@ describe('triggers', () => {
           type: 'message_new',
           text: 'Start',
           payload: JSON.stringify({ command: 'start' }),
+        },
+      });
+    });
+
+    it('should match button trigger with payload string', (done) => {
+      bot.button('help', () => {
+        done();
+      });
+
+      bot.next({
+        message: {
+          type: 'message_new',
+          text: 'Start',
+          payload: 'help',
         },
       });
     });
