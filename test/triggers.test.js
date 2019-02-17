@@ -105,7 +105,7 @@ describe('triggers', () => {
       });
     });
 
-    it('should match button trigger with payload string', (done) => {
+    it('should match button trigger with default payload', (done) => {
       bot.button('help', () => {
         done();
       });
@@ -114,7 +114,7 @@ describe('triggers', () => {
         message: {
           type: 'message_new',
           text: 'Start',
-          payload: 'help',
+          payload: JSON.stringify({ button: 'help' }),
         },
       });
     });
