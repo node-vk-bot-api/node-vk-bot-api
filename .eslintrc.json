@@ -12,6 +12,7 @@
     "camelcase": ["error", {
       "properties": "never",
       "ignoreDestructuring": true
-    }]
+    }],
+    "no-multi-spaces": "off"
   }
 }
