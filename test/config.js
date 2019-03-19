@@ -13,8 +13,9 @@ const sendRequestViaExpress = (ctx, middleware) => {
 module.exports.sendRequest = (type, body, middleware) => {
   const ctx = {
     req: { body },
+    request: { body },
     res: {
-      send: (body) => {
+      end: (body) => {
         ctx.res.body = body;
       },
     },
