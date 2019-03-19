@@ -16,7 +16,7 @@ bot.on((ctx) => {
 
 router.post('/', bot.webhookCallback);
 
-app.use(bodyParser);
+app.use(bodyParser());
 app.use(router.routes());
 
 app.listen(process.env.PORT);
