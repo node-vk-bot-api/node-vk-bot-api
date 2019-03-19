@@ -40,12 +40,7 @@
   },
   "homepage": "https://github.com/node-vk-bot-api/node-vk-bot-api#readme",
   "dependencies": {
-    "axios": "^0.17.1",
-    "body-parser": "^1.18.3",
-    "express": "^4.16.4",
-    "koa": "^2.7.0",
-    "koa-bodyparser": "^4.2.1",
-    "koa-router": "^7.4.0"
+    "axios": "^0.17.1"
   },
   "directories": {
     "example": "examples"
