@@ -146,6 +146,9 @@ Send message to user.
 // Simple usage
 bot.sendMessage(145003487, 'Hello!', 'photo1_1')
 
+// Multiple recipients
+bot.sendMessage([145003487, 145003488], 'Hello!', 'photo1_1')
+
 // Advanced usage
 bot.sendMessage(145003487, {
   message: 'Hello!',
