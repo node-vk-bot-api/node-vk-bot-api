@@ -67,7 +67,7 @@ $ npm test
 ## Methods
 
 * [constructor(settings)](#constructorsettings)
-# [.execute(method, settings)](#executemethod-settings)
+* [.execute(method, settings)](#executemethod-settings)
 * [.use(middleware)](#usemiddleware)
 * [.command(triggers, ...middlewares)](#commandtriggers-middlewares)
 * [.event(triggers, ...middlewares)](#eventtriggers-middlewares)
