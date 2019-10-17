@@ -67,6 +67,7 @@ $ npm test
 ## Methods
 
 * [constructor(settings)](#constructorsettings)
+# [.execute(method, settings)](#executemethod-settings)
 * [.use(middleware)](#usemiddleware)
 * [.command(triggers, ...middlewares)](#commandtriggers-middlewares)
 * [.event(triggers, ...middlewares)](#eventtriggers-middlewares)
@@ -95,6 +96,16 @@ const bot = new VkBot({
   confirmation: process.env.CONFIRMATION,       // confirmation string
 })
 ```
+
+### .execute(method, settings)
+
+Execute request to the VK API.
+
+```js
+const response = await bot.execute('users.get', {
+  user_ids: 1,
+})
+``` 
 
 ### .use(middleware)
 
