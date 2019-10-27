@@ -7,10 +7,10 @@ describe('execute', () => {
   it('should execute one request', async () => {
     const response = await bot.execute('users.get', { user_id: 145003487 });
 
-    expect(response).to.be.an('object');
-    expect(response.id).to.be.a('number');
-    expect(response.first_name).to.be.a('string');
-    expect(response.last_name).to.be.a('string');
+    expect(response).to.be.an('array');
+    expect(response[0].id).to.be.a('number');
+    expect(response[0].first_name).to.be.a('string');
+    expect(response[0].last_name).to.be.a('string');
   });
 
   it('should execute 24 requests with one failed', (done) => {
