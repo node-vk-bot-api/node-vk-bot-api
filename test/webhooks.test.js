@@ -44,6 +44,7 @@ describe('webhooks', () => {
         'express',
         {
           type: 'message_new',
+          object: {},
         },
         bot.webhookCallback,
       );
@@ -56,6 +57,7 @@ describe('webhooks', () => {
         'koa',
         {
           type: 'message_new',
+          object: {},
         },
         bot.webhookCallback,
       );
@@ -71,6 +73,7 @@ describe('webhooks', () => {
         'koa',
         {
           type: 'message_new',
+          object: {},
         },
         bot.webhookCallback,
       );
@@ -83,6 +86,7 @@ describe('webhooks', () => {
         'koa',
         {
           type: 'message_new',
+          object: {},
         },
         bot.webhookCallback,
       );
@@ -95,6 +99,7 @@ describe('webhooks', () => {
         'express',
         {
           type: 'message_new',
+          object: {},
           secret: bot.settings.secret,
         },
         bot.webhookCallback,
@@ -108,6 +113,7 @@ describe('webhooks', () => {
         'koa',
         {
           type: 'message_new',
+          object: {},
           secret: bot.settings.secret,
         },
         bot.webhookCallback,

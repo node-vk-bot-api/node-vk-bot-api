@@ -301,6 +301,16 @@ Markup
   .oneTime();
 ```
 
+### .inline()
+
+Helpers method for create inline keyboard.
+
+```js
+Markup
+  .keyboard(['Start', 'Help'])
+  .inline();
+```
+
 ## Sessions
 
 Store anything for current user in local (or [redis](https://github.com/node-vk-bot-api/node-vk-bot-api-session-redis)) memory.
