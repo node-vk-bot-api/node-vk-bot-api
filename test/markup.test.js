@@ -2,7 +2,13 @@ const { expect } = require('chai');
 const Markup = require('../lib/markup');
 
 describe('markup', () => {
-  const test = (keyboard, oneTime, buttons) => {
+  const test = (keyboard, options) => {
+    const {
+      buttons = options,
+      type = 'text',
+      oneTime,
+    } = options;
+
     expect(keyboard.__keyboard).to.be.an('object');
     expect(keyboard.__keyboard.buttons[0]).to.be.an('array').to.have.length(buttons.length);
 
@@ -15,7 +21,7 @@ describe('markup', () => {
 
       expect(button).to.be.an('object');
       expect(button.action).to.be.an('object');
-      expect(button.action.type).to.be.equal('text');
+      expect(button.action.type).to.be.equal(type);
 
       if (typeof sourceButton === 'string') {
         expect(button.color).to.be.equal('default');
@@ -33,14 +39,50 @@ describe('markup', () => {
     const buttons = ['one', 'two', 'three'];
     const keyboard = Markup.keyboard(buttons);
 
-    test(keyboard, false, buttons);
+    test(keyboard, {
+      buttons,
+      oneTime: false,
+    });
   });
 
   it('should create one time simple keyboard', () => {
     const buttons = ['one'];
     const keyboard = Markup.keyboard(buttons).oneTime();
 
-    test(keyboard, true, buttons);
+    test(keyboard, {
+      buttons,
+      oneTime: true,
+    });
+  });
+
+  it('should create simple keyboard w/o formatting', () => {
+    const button = {
+      action: {
+        type: 'open_link',
+        link: 'https://google.com',
+        label: 'Open Google',
+        payload: JSON.stringify({
+          url: 'https://google.com',
+        }),
+      },
+      color: 'default',
+    };
+
+    const keyboard = Markup.keyboard([
+      Markup.button(button),
+    ]);
+
+    test(keyboard, {
+      buttons: [{
+        ...button,
+        label: button.action.label,
+        payload: {
+          url: 'https://google.com',
+        },
+      }],
+      type: button.action.type,
+      oneTime: false,
+    });
   });
 
   it('should create advanced keyboard', () => {
@@ -65,19 +107,10 @@ describe('markup', () => {
       buttons.map(item => Markup.button(item.label, item.color, item.payload)),
     );
 
-    test(keyboard, false, buttons);
-  });
-
-  it('should create new keyboard and not crash first keyboard', () => {
-    const buttons = ['one', 'two'];
-    const keyboard = Markup.keyboard(buttons);
-
-    test(keyboard, false, buttons);
-
-    // create new keyboard and crash first
-    Markup.keyboard(['Crash']);
-
-    test(keyboard, false, buttons);
+    test(keyboard, {
+      buttons,
+      oneTime: false,
+    });
   });
 
   it('should create keyboard with two strings', () => {

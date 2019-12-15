@@ -64,6 +64,18 @@ Any questions you can ask in the [telegram chat](https://tele.click/joinchat/BXu
 $ npm test
 ```
 
+
+## API
+
+```js
+const api = require('node-vk-bot-api/lib/api');
+
+api('users.get', {
+  user_ids: 1,
+  access_token: process.env.TOKEN,
+}); // => Promise
+```
+
 ## Methods
 
 * [constructor(settings)](#constructorsettings)
@@ -190,6 +202,15 @@ bot.webhookCallback(req, res, next)
 bot.webhookCallback(ctx, next)
 ```
 
+## Context Structure
+
+* `message` - received message (pure object from VK API)
+    * `type` - received type event (e.g. message_new)
+    * ... other fields from VK API
+* `match?` - regexp match of your trigger
+* `client_info?` - received client info (pure object from VK API)
+* `bot` - instance of bot, you can call any methods via this instance
+
 ## Context Methods
 
 * [.reply(message, attachment, markup, sticker)](#replymessage-attachment-keyboard-sticker)
@@ -227,6 +248,24 @@ ctx.reply('Select your sport', null, Markup
 #### Advanced usage
 
 ```js
+// custom buttons
+ctx.reply('Hey!', null, Markup
+  .keyboard([
+    Markup.button({
+      action: {
+        type: 'open_link',
+        link: 'https://google.com',
+        label: 'Open Google',
+        payload: JSON.stringify({
+          url: 'https://google.com',
+        }),
+      },
+      color: 'default',
+    }),
+  ]),
+);
+
+// default buttons
 ctx.reply('How are you doing?', null, Markup
   .keyboard([
     [
@@ -236,7 +275,7 @@ ctx.reply('How are you doing?', null, Markup
       Markup.button('Fine', 'positive'),
       Markup.button('Bad', 'negative'),
     ],
-  ])
+  ]),
 )
 ```
 
