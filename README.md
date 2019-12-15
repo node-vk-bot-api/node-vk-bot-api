@@ -248,6 +248,24 @@ ctx.reply('Select your sport', null, Markup
 #### Advanced usage
 
 ```js
+// custom buttons
+ctx.reply('Hey!', null, Markup
+  .keyboard([
+    Markup.button({
+      action: {
+        type: 'open_link',
+        link: 'https://google.com',
+        label: 'Open Google',
+        payload: JSON.stringify({
+          url: 'https://google.com',
+        }),
+      },
+      color: 'default',
+    }),
+  ]),
+);
+
+// default buttons
 ctx.reply('How are you doing?', null, Markup
   .keyboard([
     [
@@ -257,7 +275,7 @@ ctx.reply('How are you doing?', null, Markup
       Markup.button('Fine', 'positive'),
       Markup.button('Bad', 'negative'),
     ],
-  ])
+  ]),
 )
 ```
 
