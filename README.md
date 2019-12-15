@@ -64,6 +64,18 @@ Any questions you can ask in the [telegram chat](https://tele.click/joinchat/BXu
 $ npm test
 ```
 
+
+## API
+
+```js
+const api = require('node-vk-bot-api/lib/api');
+
+api('users.get', {
+  user_ids: 1,
+  access_token: process.env.TOKEN,
+}); // => Promise
+```
+
 ## Methods
 
 * [constructor(settings)](#constructorsettings)
