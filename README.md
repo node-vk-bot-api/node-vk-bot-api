@@ -206,7 +206,7 @@ bot.webhookCallback(ctx, next)
 
 ### .stop()
 
-Stop the bot. Disables receiving updates from Long Poll and Webhook.
+Stop the bot. Disables any receiving updates from Long Poll or Callback APIs.
 
 ```js
 bot.stop()
@@ -214,7 +214,7 @@ bot.stop()
 
 ### .start()
 
-Start the bot after it was turned off by the [.stop()](#stop) method.
+Start the bot after it was turned off via [.stop()](#stop) method. When you are using Long Poll API, you need to call [`.startPolling([callback])`]((#startpollingcallback)) again.
 
 ```js
 bot.start()
