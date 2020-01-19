@@ -214,7 +214,7 @@ bot.stop()
 
 ### .start()
 
-Start the bot after it was turned off via [.stop()](#stop) method. When you are using Long Poll API, you need to call [`.startPolling([callback])`]((#startpollingcallback)) again.
+Start the bot after it was turned off via [.stop()](#stop) method. When you are using Long Poll API, you need to call [`.startPolling([callback])`](#startpollingcallback) again.
 
 ```js
 bot.start()
