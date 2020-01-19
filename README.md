@@ -87,6 +87,8 @@ api('users.get', {
 * [.sendMessage(userId, message, attachment, keyboard, sticker)](#sendmessageuserid-message-attachment-keyboard-sticker)
 * [.startPolling([callback])](#startpollingcallback)
 * [.webhookCallback(...args)](#webhookcallbackargs)
+* [.stop()](#stop)
+* [.start()](#start)
 
 ### constructor(settings)
 
@@ -200,6 +202,22 @@ bot.webhookCallback(req, res, next)
 
 // koa
 bot.webhookCallback(ctx, next)
+```
+
+### .stop()
+
+Stop the bot. Disables receiving updates from Long Poll and Webhook.
+
+```js
+bot.stop()
+```
+
+### .start()
+
+Start the bot after it was turned off by the [.stop()](#stop) method.
+
+```js
+bot.start()
 ```
 
 ## Context Structure
