@@ -17,10 +17,9 @@ describe('execute', () => {
     Array(24).fill(null).map(() => bot.execute('users.get', { user_id: 145003487 }));
 
     bot.execute('wall.post', {}).catch((err) => {
-      expect(err).to.be.an('object');
-      expect(err.method).to.be.a('string');
-      expect(err.error_code).to.be.a('number');
-      expect(err.error_msg).to.be.a('string');
+      expect(err).to.be.a('error');
+      expect(err.message).to.be.equal('ApiError');
+      expect(err.response).to.be.an('object');
 
       done();
     });
