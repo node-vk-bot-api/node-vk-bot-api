@@ -17,7 +17,7 @@ $ npm i node-vk-bot-api -S
 ```javascript
 const VkBot = require('node-vk-bot-api')
 
-const bot = new VkBot(process.env.TOKEN)
+const bot = new VkBot({token: process.env.TOKEN})
 
 bot.command('/start', (ctx) => {
   ctx.reply('Hello!')
@@ -57,6 +57,8 @@ app.listen(process.env.PORT)
 ## Community support
 
 Any questions you can ask in the [telegram chat](https://tele.click/joinchat/BXuo0kxMRNVyfdKKjMHpQQ). [russian/english]
+
+FAQs: [ru]() [en]()
 
 ## Tests
 
@@ -104,7 +106,10 @@ const bot = new VkBot({
   group_id: process.env.GROUP_ID,
   execute_timeout: process.env.EXECUTE_TIMEOUT, // in ms   (50 by default)
   polling_timeout: process.env.POLLING_TIMEOUT, // in secs (25 by default)
-
+  proxy: {
+    host: http_proxy_host,
+    port: http_proxy_port
+  },
   // webhooks options only
   secret: process.env.SECRET,                   // secret key (optional)
   confirmation: process.env.CONFIRMATION,       // confirmation string
