@@ -76,6 +76,49 @@ api('users.get', {
 }); // => Promise
 ```
 
+## Error handling
+
+```js
+// bad
+bot.on('/start', (ctx) => {
+  ctx.reply('Hello, world!');
+});
+
+// not bad
+bot.on('/start', async (ctx) => {
+  try {
+    await ctx.reply('Hello, world!');
+  } catch (e) {
+    console.error(err);
+  }
+});
+
+// good
+bot.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+bot.on('/start', async (ctx) => {
+  await ctx.reply('Hello, world!');
+});
+```
+
+```js
+// bad
+bot.startPolling();
+
+// good
+bot.startPolling((err) => {
+  if (err) {
+    console.error(err);
+  }
+});
+```
+
 ## Methods
 
 * [constructor(settings)](#constructorsettings)
