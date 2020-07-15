@@ -15,39 +15,39 @@ $ npm i node-vk-bot-api -S
 ## Usage
 
 ```javascript
-const VkBot = require('node-vk-bot-api')
+const VkBot = require('node-vk-bot-api');
 
-const bot = new VkBot(process.env.TOKEN)
+const bot = new VkBot(process.env.TOKEN);
 
 bot.command('/start', (ctx) => {
-  ctx.reply('Hello!')
-})
+  ctx.reply('Hello!');
+});
 
-bot.startPolling()
+bot.startPolling();
 ```
 
 ## Webhooks
 
 ```javascript
-const express = require('express')
-const bodyParser = require('body-parser')
-const VkBot = require('node-vk-bot-api')
+const express = require('express');
+const bodyParser = require('body-parser');
+const VkBot = require('node-vk-bot-api');
 
-const app = express()
+const app = express();
 const bot = new VkBot({
   token: process.env.TOKEN,
   confirmation: process.env.CONFIRMATION,
-})
+});
 
 bot.on((ctx) => {
-  ctx.reply('Hello!')
-})
+  ctx.reply('Hello!');
+});
 
-app.use(bodyParser.json())
+app.use(bodyParser.json());
 
-app.post('/', bot.webhookCallback)
+app.post('/', bot.webhookCallback);
 
-app.listen(process.env.PORT)
+app.listen(process.env.PORT);
 ```
 
 ## Examples
@@ -76,6 +76,49 @@ api('users.get', {
 }); // => Promise
 ```
 
+## Error handling
+
+```js
+// bad
+bot.command('/start', (ctx) => {
+  ctx.reply('Hello, world!');
+});
+
+// not bad
+bot.command('/start', async (ctx) => {
+  try {
+    await ctx.reply('Hello, world!');
+  } catch (e) {
+    console.error(err);
+  }
+});
+
+// good
+bot.use(async (ctx, next) => {
+  try {
+    await next();
+  } catch (e) {
+    console.error(e);
+  }
+});
+
+bot.command('/start', async (ctx) => {
+  await ctx.reply('Hello, world!');
+});
+```
+
+```js
+// bad
+bot.startPolling();
+
+// good
+bot.startPolling((err) => {
+  if (err) {
+    console.error(err);
+  }
+});
+```
+
 ## Methods
 
 * [constructor(settings)](#constructorsettings)
@@ -96,7 +139,7 @@ Create bot.
 
 ```javascript
 // Simple usage
-const bot = new VkBot(process.env.TOKEN)
+const bot = new VkBot(process.env.TOKEN);
 
 // Advanced usage
 const bot = new VkBot({
@@ -108,7 +151,7 @@ const bot = new VkBot({
   // webhooks options only
   secret: process.env.SECRET,                   // secret key (optional)
   confirmation: process.env.CONFIRMATION,       // confirmation string
-})
+});
 ```
 
 ### .execute(method, settings)
@@ -118,7 +161,7 @@ Execute request to the VK API.
 ```js
 const response = await bot.execute('users.get', {
   user_ids: 1,
-})
+});
 ``` 
 
 ### .use(middleware)
@@ -127,10 +170,10 @@ Add simple middleware.
 
 ```javascript
 bot.use((ctx, next) => {
-  ctx.message.timestamp = new Date().getTime()
-  
-  next()
-})
+  ctx.message.timestamp = new Date().getTime();
+
+  return next();
+});
 ```
 
 ### .command(triggers, ...middlewares)
@@ -139,8 +182,8 @@ Add middlewares with triggers for `message_new` event.
 
 ```javascript
 bot.command('start', (ctx) => {
-  ctx.reply('Hello!')
-})
+  ctx.reply('Hello!');
+});
 ```
 
 ### .event(triggers, ...middlewares)
@@ -149,8 +192,8 @@ Add middlewares with triggers for selected events.
 
 ```javascript
 bot.event('message_edit', (ctx) => {
-  ctx.reply('Your message was editted')
-})
+  ctx.reply('Your message was editted');
+});
 ```
 
 ### .on(...middlewares)
@@ -159,8 +202,8 @@ Add reserved middlewares without triggers.
 
 ```javascript
 bot.on((ctx) => {
-  ctx.reply('No commands for you.')
-})
+  ctx.reply('No commands for you.');
+});
 ```
 
 ### .sendMessage(userId, message, attachment, keyboard, sticker)
@@ -169,17 +212,17 @@ Send message to user.
 
 ```javascript
 // Simple usage
-bot.sendMessage(145003487, 'Hello!', 'photo1_1')
+bot.sendMessage(145003487, 'Hello!', 'photo1_1');
 
 // Multiple recipients
-bot.sendMessage([145003487, 145003488], 'Hello!', 'photo1_1')
+bot.sendMessage([145003487, 145003488], 'Hello!', 'photo1_1');
 
 // Advanced usage
 bot.sendMessage(145003487, {
   message: 'Hello!',
   lat: 59.939095,
   lng: 30.315868,
-})
+});
 ```
 
 ### .startPolling([callback])
@@ -187,9 +230,11 @@ bot.sendMessage(145003487, {
 Start polling with optional callback.
 
 ```js
-bot.startPolling(() => {
-  console.log('Bot started.')
-})
+bot.startPolling((err) => {
+  if (err) {
+    console.error(err);
+  }
+});
 ```
 
 ### .webhookCallback(...args)
@@ -198,10 +243,10 @@ Get webhook callback.
 
 ```js
 // express
-bot.webhookCallback(req, res, next)
+bot.webhookCallback(req, res, next);
 
 // koa
-bot.webhookCallback(ctx, next)
+bot.webhookCallback(ctx, next);
 ```
 
 ### .stop()
@@ -209,7 +254,7 @@ bot.webhookCallback(ctx, next)
 Stop the bot. Disables any receiving updates from Long Poll or Callback APIs.
 
 ```js
-bot.stop()
+bot.stop();
 ```
 
 ### .start()
@@ -217,7 +262,7 @@ bot.stop()
 Start the bot after it was turned off via [.stop()](#stop) method. When you are using Long Poll API, you need to call [`.startPolling([callback])`](#startpollingcallback) again.
 
 ```js
-bot.start()
+bot.start();
 ```
 
 ## Context Structure
@@ -239,8 +284,8 @@ Helper method for reply to the current user.
 
 ```javascript
 bot.command('start', (ctx) => {
-  ctx.reply('Hello!')
-})
+  ctx.reply('Hello!');
+});
 ```
 
 ## Markup
@@ -259,8 +304,8 @@ ctx.reply('Select your sport', null, Markup
     'Football',
     'Basketball',
   ])
-  .oneTime()
-)
+  .oneTime(),
+);
 ```
 
 #### Advanced usage
@@ -294,7 +339,7 @@ ctx.reply('How are you doing?', null, Markup
       Markup.button('Bad', 'negative'),
     ],
   ]),
-)
+);
 ```
 
 ### .keyboard(buttons, options)
@@ -334,7 +379,7 @@ Markup.keyboard([
 Markup.keyboard([
   'one',
   'two',
-  'three'
+  'three',
 ]);
 ```
 
@@ -375,22 +420,22 @@ Store anything for current user in local (or [redis](https://github.com/node-vk-
 ### Usage
 
 ```javascript
-const VkBot = require('node-vk-bot-api')
-const Session = require('node-vk-bot-api/lib/session')
+const VkBot = require('node-vk-bot-api');
+const Session = require('node-vk-bot-api/lib/session');
 
-const bot = new VkBot(process.env.TOKEN)
-const session = new Session()
+const bot = new VkBot(process.env.TOKEN);
+const session = new Session();
 
-bot.use(session.middleware())
+bot.use(session.middleware());
 
 bot.on((ctx) => {
-  ctx.session.counter = ctx.session.counter || 0
-  ctx.session.counter++
+  ctx.session.counter = ctx.session.counter || 0;
+  ctx.session.counter++;
 
-  ctx.reply(`You wrote ${ctx.session.counter} messages.`)
-})
+  ctx.reply(`You wrote ${ctx.session.counter} messages.`);
+});
 
-bot.startPolling()
+bot.startPolling();
 ```
 
 ### API
@@ -414,41 +459,41 @@ const getSessionKey = (ctx) => {
 
 Scene manager.
 ```javascript
-const VkBot = require('node-vk-bot-api')
-const Scene = require('node-vk-bot-api/lib/scene')
-const Session = require('node-vk-bot-api/lib/session')
-const Stage = require('node-vk-bot-api/lib/stage')
+const VkBot = require('node-vk-bot-api');
+const Scene = require('node-vk-bot-api/lib/scene');
+const Session = require('node-vk-bot-api/lib/session');
+const Stage = require('node-vk-bot-api/lib/stage');
 
-const bot = new VkBot(process.env.TOKEN)
+const bot = new VkBot(process.env.TOKEN);
 const scene = new Scene('meet',
   (ctx) => {
-    ctx.scene.next()
-    ctx.reply('How old are you?')
+    ctx.scene.next();
+    ctx.reply('How old are you?');
   },
   (ctx) => {
-    ctx.session.age = +ctx.message.text
+    ctx.session.age = +ctx.message.text;
 
-    ctx.scene.next()
-    ctx.reply('What is your name?')
+    ctx.scene.next();
+    ctx.reply('What is your name?');
   },
   (ctx) => {
-    ctx.session.name = ctx.message.text
+    ctx.session.name = ctx.message.text;
 
-    ctx.scene.leave()
-    ctx.reply(`Nice to meet you, ${ctx.session.name} (${ctx.session.age} years old)`)
+    ctx.scene.leave();
+    ctx.reply(`Nice to meet you, ${ctx.session.name} (${ctx.session.age} years old)`);
   },
-)
-const session = new Session()
-const stage = new Stage(scene)
+);
+const session = new Session();
+const stage = new Stage(scene);
 
-bot.use(session.middleware())
-bot.use(stage.middleware())
+bot.use(session.middleware());
+bot.use(stage.middleware());
 
 bot.command('/meet', (ctx) => {
-  ctx.scene.enter('meet')
-})
+  ctx.scene.enter('meet');
+});
 
-bot.startPolling()
+bot.startPolling();
 ```
 
 ### API
