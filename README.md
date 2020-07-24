@@ -89,7 +89,7 @@ bot.command('/start', async (ctx) => {
   try {
     await ctx.reply('Hello, world!');
   } catch (e) {
-    console.error(err);
+    console.error(e);
   }
 });
 
