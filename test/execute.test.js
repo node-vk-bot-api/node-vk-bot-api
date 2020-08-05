@@ -24,4 +24,14 @@ describe('execute', () => {
       done();
     });
   });
+
+  it('should execute messages.send', async () => {
+    const response = await bot.execute('messages.send', {
+      peer_id: 145003487,
+      random_id: Math.random(),
+      message: 'test',
+    });
+
+    expect(response).to.be.a('number');
+  });
 });
