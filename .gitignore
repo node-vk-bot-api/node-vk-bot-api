@@ -1,4 +1,4 @@
 node_modules
 .idea
-config.js
+.env
 !test/config.js

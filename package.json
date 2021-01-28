@@ -4,9 +4,9 @@
   "description": "🤖 VK bot framework for Node.js, based on Bots Long Poll API and Callback API",
   "main": "lib/index.js",
   "scripts": {
-    "test": "mocha --exit --timeout 5000",
-    "eslint": "eslint .",
-    "eslint:fix": "eslint . --fix"
+    "test": "mocha -r dotenv/config --exit --timeout 5000",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -51,9 +51,16 @@
   "devDependencies": {
     "@bifot/eslint-config": "^1.0.2",
     "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
     "eslint": "^5.9.0",
     "eslint-config-airbnb-base": "^13.0.0",
     "eslint-plugin-import": "^2.13.0",
+    "husky": "^4.3.8",
     "mocha": "^8.2.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint && npm test"
+    }
   }
 }
