@@ -33,6 +33,9 @@ describe('events', () => {
       expect(ctx.message.type).to.be.equal(type);
       expect(ctx.message.text).to.be.equal(message);
 
+      expect(ctx.groupId).to.be.a('number');
+      expect(ctx.eventId).to.be.a('string');
+
       expect(ctx.client_info).to.be.an('object');
       expect(ctx.clientInfo).to.be.an('object');
 
