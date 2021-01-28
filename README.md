@@ -270,8 +270,10 @@ bot.start();
 * `message` - received message (pure object from VK API)
     * `type` - received type event (e.g. message_new)
     * ... other fields from VK API
+* `eventId` - callback's eventId
+* `groupId` - callback's groupId
 * `match?` - regexp match of your trigger
-* `client_info?` - received client info (pure object from VK API)
+* `clientInfo?` - received client info (pure object from VK API)
 * `bot` - instance of bot, you can call any methods via this instance
 
 ## Context Methods

@@ -13,6 +13,7 @@
       "properties": "never",
       "ignoreDestructuring": true
     }],
+    "function-paren-newline": "off",
     "no-multi-spaces": "off",
     "no-param-reassign": "off"
   }
