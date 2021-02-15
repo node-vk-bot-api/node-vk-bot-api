@@ -1,6 +1,12 @@
 // Type definitions for node-vk-bot-api 3.4.0
 // Definitions by: kapturoff, https://github.com/kapturoff
 
+type VkBotMiddleware = (ctx: VkBotContext, next?: () => any) => any
+
+//-------------------------//
+// Interfaces for settings //
+//-------------------------//
+
 interface VkBotSettings {
 	token: string
 	group_id?: number
@@ -16,7 +22,9 @@ interface VkBotSessionSettings {
 	getSessionKey?(middleware: VkBotMiddleware)
 }
 
-type VkBotMiddleware = (ctx: VkBotContext, next?: () => any) => any
+//-----------------------//
+// Additional interfaces //
+//-----------------------//
 
 interface VkBotAttachment {
 	type:
@@ -36,163 +44,22 @@ interface VkBotAttachment {
 	photo?: VkBotPhoto
 
 	/** if type is video */
-	video?: {
-		id: number
-		owner_id: number
-		title: string
-		description: string
-		duration: number
-		image: {
-			height: number
-			width: number
-			url: string
-			with_padding: number
-		}[]
-		first_frame: {
-			height: number
-			width: number
-			url: string
-		}[]
-		date: number
-		adding_time: number
-		view: number
-		local_views?: number
-		comments?: number
-		player: string
-	}
+	video?: VkBotVideo
 
 	/** if type is audio */
-	audio?: {
-		id: number
-		owner_id: number
-		title: string
-		date: number
-		artist: string
-		duration: number
-		lyrics_id?: number
-		album_id?: number
-		genre_id?: number
-		no_search?: 1
-		is_hq?: 1
-	}
+	audio?: VkBotAudio
 
 	/** if type is doc */
-	doc?: {
-		id: number
-		owner_id: number
-		title: string
-		date: number
-		size: number
-		ext: string
-		url: string
-		/**
-		 * - 1 - text
-		 * - 2 - archive
-		 * - 3 - gif
-		 * - 4 - image
-		 * - 5 - audio
-		 * - 6 - video
-		 * - 7 - e-book
-		 * - 8 - unknown
-		 */
-		type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
-		preview: {
-			photo?: {
-				sizes: {
-					height: number
-					width: number
-					type: string
-					src: string
-				}[]
-			}
-			graffiti?: {
-				height: number
-				width: number
-				src: string
-			}
-			audio_message?: {
-				duration: number
-				waveform: number[]
-				link_ogg: string
-				link_mp3: string
-			}
-		}
-	}
+	doc?: VkBotDoc
 
 	/** if type is link */
-	link?: {
-		url: string
-		title: string
-		caption?: string
-		description: string
-
-		product?: {
-			price: {
-				amount: number
-				currency: {
-					id: number
-					name: string
-				}
-				text: string
-			}
-		}
-		button?: {
-			title: string
-			action: {
-				type: 'open_url'
-				url: string
-			}
-		}
-		preview_page: string
-		preview_url: string
-	}
+	link?: VkBotLink
 
 	/** if type is market */
-	market?: {
-		id: number
-		owner_id: number
-		title: string
-		description: string
-		price: {
-			amount: number
-			currency: {
-				id: number
-				name: string
-			}
-			text: string
-			old_amount: string
-		}
-		dimensions?: {
-			width: number
-			height: number
-			length: string
-		}
-		weight?: number
-		category: {
-			id: number
-			name: string
-			section: {
-				id: number
-				name: string
-			}
-		}
-		thumb_photo: string
-		date: number
-		availability: 0 | 1 | 2
-		is_favorite?: boolean
-		sku: string
-	}
+	market?: VkBotMarket
 
 	/** if type is market_album */
-	market_album?: {
-		id: number
-		owner_id: number
-		title: string
-		description: string
-		photo?: VkBotPhoto
-		count: number
-		updated_time: string
-	}
+	market_album?: VkBotMarketAlbum
 
 	/** if type is wall */
 	wall?: VkBotWall
@@ -201,22 +68,10 @@ interface VkBotAttachment {
 	wall_reply?: VkBotComment
 
 	/** if type is sticker */
-	sticker?: {
-		product_id: number
-		sticker_id: number
-		images?: VkBotPhoto[]
-		images_with_background?: VkBotPhoto[]
-		animation_url?: string
-		is_allowed: boolean
-	}
+	sticker?: VkBotSticker
 
 	/** if type is gift */
-	gift?: {
-		id: number
-		thumb_256: string
-		thumb_96: string
-		thumb_48: string
-	}
+	gift?: VkBotGift
 }
 
 interface VkBotGeo {
@@ -285,6 +140,136 @@ interface VkBotWall {
 	postponed_id?: number
 }
 
+interface VkBotSticker {
+	product_id: number
+	sticker_id: number
+	images?: VkBotPhoto[]
+	images_with_background?: VkBotPhoto[]
+	animation_url?: string
+	is_allowed: boolean
+}
+
+interface VkBotGift {
+	id: number
+	thumb_256: string
+	thumb_96: string
+	thumb_48: string
+}
+
+interface VkBotDoc {
+	id: number
+	owner_id: number
+	title: string
+	date: number
+	size: number
+	ext: string
+	url: string
+	/**
+	 * - 1 - text
+	 * - 2 - archive
+	 * - 3 - gif
+	 * - 4 - image
+	 * - 5 - audio
+	 * - 6 - video
+	 * - 7 - e-book
+	 * - 8 - unknown
+	 */
+	type: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8
+	preview: {
+		photo?: {
+			sizes: {
+				height: number
+				width: number
+				type: string
+				src: string
+			}[]
+		}
+		graffiti?: {
+			height: number
+			width: number
+			src: string
+		}
+		audio_message?: {
+			duration: number
+			waveform: number[]
+			link_ogg: string
+			link_mp3: string
+		}
+	}
+}
+
+interface VkBotMarket {
+	id: number
+	owner_id: number
+	title: string
+	description: string
+	price: {
+		amount: number
+		currency: {
+			id: number
+			name: string
+		}
+		text: string
+		old_amount: string
+	}
+	dimensions?: {
+		width: number
+		height: number
+		length: string
+	}
+	weight?: number
+	category: {
+		id: number
+		name: string
+		section: {
+			id: number
+			name: string
+		}
+	}
+	thumb_photo: string
+	date: number
+	availability: 0 | 1 | 2
+	is_favorite?: boolean
+	sku: string
+}
+
+interface VkBotMarketAlbum {
+	id: number
+	owner_id: number
+	title: string
+	description: string
+	photo?: VkBotPhoto
+	count: number
+	updated_time: string
+}
+
+interface VkBotLink {
+	url: string
+	title: string
+	caption?: string
+	description: string
+
+	product?: {
+		price: {
+			amount: number
+			currency: {
+				id: number
+				name: string
+			}
+			text: string
+		}
+	}
+	button?: {
+		title: string
+		action: {
+			type: 'open_url'
+			url: string
+		}
+	}
+	preview_page: string
+	preview_url: string
+}
+
 interface VkBotPhoto {
 	id: number
 	album_id: number
@@ -302,6 +287,45 @@ interface VkBotPhoto {
 	width?: number
 	/** Field can be not set for photos that were uploaded before 2012 year */
 	height?: number
+}
+
+interface VkBotVideo {
+	id: number
+	owner_id: number
+	title: string
+	description: string
+	duration: number
+	image: {
+		height: number
+		width: number
+		url: string
+		with_padding: number
+	}[]
+	first_frame: {
+		height: number
+		width: number
+		url: string
+	}[]
+	date: number
+	adding_time: number
+	view: number
+	local_views?: number
+	comments?: number
+	player: string
+}
+
+interface VkBotAudio {
+	id: number
+	owner_id: number
+	title: string
+	date: number
+	artist: string
+	duration: number
+	lyrics_id?: number
+	album_id?: number
+	genre_id?: number
+	no_search?: 1
+	is_hq?: 1
 }
 
 interface VkBotComment {
@@ -330,25 +354,9 @@ interface VkBotClientInfo {
 	lang_id: number
 }
 
-interface VkBotButton {
-	action: {
-		type: 'text' | 'open_link' | 'location' | 'vkpay' | 'open_app' | 'callback'
-		label?: string
-		payload?: string
-		link?: string
-		hash?: string
-		app_id?: number
-		owner_id?: number
-	}
-	color: 'primary' | 'secondary' | 'negative' | 'positive'
-}
-
-interface VkBotKeyboard {
-	buttons: VkBotButton[]
-	inline(value?: boolean): this
-	oneTime(value?: boolean): this
-	toJSON(): string
-}
+//--------------------//
+// Main functionality //
+//--------------------//
 
 interface VkBotMessage {
 	id: number
@@ -429,7 +437,6 @@ interface VkBotContext {
 	}
 }
 
-// Core class
 declare class VkBot {
 	constructor(token: string)
 	constructor(settings: VkBotSettings)
@@ -472,7 +479,30 @@ declare module 'node-vk-bot-api' {
 	export default VkBot
 }
 
-// Markup class
+//----------------------//
+// Markup functionality //
+//----------------------//
+
+interface VkBotButton {
+	action: {
+		type: 'text' | 'open_link' | 'location' | 'vkpay' | 'open_app' | 'callback'
+		label?: string
+		payload?: string
+		link?: string
+		hash?: string
+		app_id?: number
+		owner_id?: number
+	}
+	color: 'primary' | 'secondary' | 'negative' | 'positive'
+}
+
+interface VkBotKeyboard {
+	buttons: VkBotButton[]
+	inline(value?: boolean): this
+	oneTime(value?: boolean): this
+	toJSON(): string
+}
+
 declare class VkBotMarkup {
 	static keyboard(
 		buttons: VkBotButton[] | VkBotButton[][],
@@ -500,7 +530,10 @@ declare module 'node-vk-bot-api/lib/markup' {
 	export default VkBotMarkup
 }
 
-// Session class
+//-----------------------//
+// Session functionality //
+//-----------------------//
+
 declare class VkBotSession {
 	constructor(settings?: VkBotSessionSettings)
 
@@ -511,7 +544,10 @@ declare module 'node-vk-bot-api/lib/session' {
 	export default VkBotSession
 }
 
-// Scene class
+//---------------------//
+// Scene functionality //
+//---------------------//
+
 declare class VkBotScene {
 	constructor(name: string, ...middlewares: VkBotMiddleware[])
 	command(_triggers: string[], ...middlewares: VkBotMiddleware[]): void
@@ -521,7 +557,10 @@ declare module 'node-vk-bot-api/lib/scene' {
 	export default VkBotScene
 }
 
-// Stage class
+//---------------------//
+// Stage functionality //
+//---------------------//
+
 declare class VkBotStage {
 	constructor(...scenes: VkBotScene[])
 	enter(ctx: VkBotContext): any
