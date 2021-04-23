@@ -12,6 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/node-vk-bot-api/node-vk-bot-api.git"
   },
+  "types": "./index.d.ts",
   "keywords": [
     "vk",
     "bots",
