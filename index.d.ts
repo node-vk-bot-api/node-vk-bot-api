@@ -464,7 +464,7 @@ declare class VkBot {
 
   event(triggers: string, ...middlewares: VkBotMiddleware[]): void
 
-  startPolling(callback?: (err: any) => {}): void
+  startPolling(callback?: (err: any) => void): void
 
   webhookCallback(req: any, res: any, next?: () => {}): any
 
